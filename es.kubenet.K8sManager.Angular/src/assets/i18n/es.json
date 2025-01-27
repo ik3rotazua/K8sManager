@@ -19,6 +19,13 @@
     }
   },
   "APP_NAME": "K8sManager",
+  "BTN": {
+    "GENERIC": {
+      "NEW": {
+        "MALE": "BTN.GENERIC.NEW.MALE"
+      }
+    }
+  },
   "COMPONENT": {
     "DATATABLE": {
       "ACTION": {
@@ -74,6 +81,13 @@
       "HOME": "Inicio"
     }
   },
+  "MODALS": {
+    "AUTH": {
+      "HEADER": {
+        "LABEL": "MODALS.AUTH.HEADER.LABEL"
+      }
+    }
+  },
   "no": "no",
   "PAGE": {
     "DASHBOARD": {
@@ -83,14 +97,12 @@
       "DETAILS": {
         "NAME": "Nombre",
         "SURNAME1": "Apellido",
-        "SURNAME2": "Segundo apellido",
-        "TITLE": "Empleados - Detalles"
+        "SURNAME2": "Segundo apellido"
       },
       "LIST": {
         "NAME": "Nombre",
         "SURNAME1": "Primer apellido",
-        "SURNAME2": "Segundo apellido",
-        "TITLE": "Empleados - Lista"
+        "SURNAME2": "Segundo apellido"
       }
     },
     "ERROR": {
@@ -104,10 +116,13 @@
     "AUTH": {
       "LOGIN": {
         "LABEL": {
+          "HEADER": "Hoy es un nuevo día. Toma el control y orquesta la grandeza.",
           "NOT_AVAILABLE": "No es posible iniciar sesión en este momento",
           "PASSWORD": "Contraseña",
           "REMEMBERME": "Permanecer conectado",
-          "USERNAME": "Usuario"
+          "SUBHEADER": "Inicia sesión para gestionar tus clústeres de Kubernetes.",
+          "USERNAME": "Usuario",
+          "WELCOME": "Bienvenido"
         }
       }
     },

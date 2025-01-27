@@ -19,6 +19,7 @@ html {
   justify-content: end;
   position: sticky;
   z-index: 1;
+  align-items: center;
 
   background-color: var(--#{$prefix}body-bg);
   border-bottom: 3px solid var(--#{$prefix}primary);
@@ -34,8 +35,17 @@ html {
   }
 }
 
+.page-toolbar-title {
+  margin: 0;
+  padding: 0;
+  height: auto;
+}
+
 .btn-group {
   >app-btn {
+    @extend .btn-group;
+  }
+  >app-btn-menu {
     @extend .btn-group;
   }
 }

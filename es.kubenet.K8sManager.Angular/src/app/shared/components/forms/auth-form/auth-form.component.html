@@ -2,13 +2,16 @@
 @case (false){
 
 @if(!(_lAuthLabel && true) && oAuthProviders.length === 0) {
-<div class="text-center mt-3">
+<div class="text-center mt-4">
   <h2>{{'PAGES.AUTH.LOGIN.LABEL.NOT_AVAILABLE' | translate}}</h2>
 </div>
 }
 
 @if (_lAuthLabel && true) {
-<form (ngSubmit)="onFormSubmit($event)">
+<h1>{{'PAGES.AUTH.LOGIN.LABEL.WELCOME' | translate}} <span>👋</span></h1>
+<p>{{'PAGES.AUTH.LOGIN.LABEL.HEADER' | translate}}<br>{{'PAGES.AUTH.LOGIN.LABEL.SUBHEADER' | translate}}</p>
+
+<form class="mt-4" (ngSubmit)="onFormSubmit($event)">
   <div class="form-group">
     <ax-bs-form-input
       #inpUsr

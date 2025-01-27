@@ -19,6 +19,13 @@
     }
   },
   "APP_NAME": "K8sManager",
+  "BTN": {
+    "GENERIC": {
+      "NEW": {
+        "MALE": "BTN.GENERIC.NEW.MALE"
+      }
+    }
+  },
   "COMPONENT": {
     "DATATABLE": {
       "ACTION": {
@@ -74,6 +81,13 @@
       "HOME": "Home"
     }
   },
+  "MODALS": {
+    "AUTH": {
+      "HEADER": {
+        "LABEL": "MODALS.AUTH.HEADER.LABEL"
+      }
+    }
+  },
   "no": "no",
   "PAGE": {
     "DASHBOARD": {
@@ -83,14 +97,12 @@
       "DETAILS": {
         "NAME": "Name",
         "SURNAME1": "First surname",
-        "SURNAME2": "Second surname",
-        "TITLE": "Employee - Details"
+        "SURNAME2": "Second surname"
       },
       "LIST": {
         "NAME": "Name",
         "SURNAME1": "First surname",
-        "SURNAME2": "Second surname",
-        "TITLE": "Employee - List"
+        "SURNAME2": "Second surname"
       }
     },
     "ERROR": {
@@ -104,10 +116,13 @@
     "AUTH": {
       "LOGIN": {
         "LABEL": {
+          "HEADER": "Today is a new day. Take control and orchestrate greatness.",
           "NOT_AVAILABLE": "Authentication is currently not available",
           "PASSWORD": "Password",
           "REMEMBERME": "Keep me signed in",
-          "USERNAME": "Username"
+          "SUBHEADER": "Sign in to manage your Kubernetes clusters.",
+          "USERNAME": "Username",
+          "WELCOME": "Welcome"
         }
       }
     },
