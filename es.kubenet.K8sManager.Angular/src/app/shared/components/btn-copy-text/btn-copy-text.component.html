@@ -1,0 +1,19 @@
+<button
+  *ngIf="(content && true) || showIfNoContent"
+  axAutoBlur
+  type="button"
+  class="btn btn-xs"
+  [class]="btnClass"
+  (click)="copyToClipboard(tooltip)"
+  #tooltip="bs-tooltip"
+  [tooltip]="'Contenido copiado al portapapeles'"
+  [triggers]="''"
+  [tooltipAnimation]="true"
+  >
+  <fa-icon
+    [class]="currentIconClass"
+    [icon]="currentIcon"
+    [fixedWidth]="true"
+  ></fa-icon>
+</button>
+

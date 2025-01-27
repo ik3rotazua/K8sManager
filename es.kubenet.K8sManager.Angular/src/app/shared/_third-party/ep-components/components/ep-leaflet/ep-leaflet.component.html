@@ -1,0 +1,23 @@
+<div class="floating-button-wrapper"
+  vertical="top"
+  horizontal="end">
+  <div *ngFor="let b of actionButtons.buttons"
+    class="floating-button-container">
+    <div *ngIf="b.tooltip" class="floating-button-tooltip">
+        <div class="floating-button-tooltip-border"></div>
+        <div class="floating-button-tooltip-text text-right"
+            [innerHTML]="b.tooltip"></div>
+    </div>
+    <button type="button"
+        *ngFor="let b of actionButtons.buttons"
+        class="btn btn-primary floating-button p-0"
+        (click)="executeAction(b)">
+        <fa-icon [icon]="[b.iconPrefix, b.iconName]"></fa-icon>
+    </button>
+  </div>
+</div>
+
+<div #container>
+</div>
+
+<ng-content></ng-content>

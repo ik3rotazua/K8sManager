@@ -1,0 +1,143 @@
+@use "sass:math";
+@import "./styles.bootstrap.basic.scss";
+@import "./styles.bootstrap.components.scss";
+
+// Theme core
+@import "./theme";
+@import "./styles.theme-overrides.scss";
+
+@import "/node_modules/ngx-bootstrap/datepicker/bs-datepicker.scss";
+@import "./styles.ngx-toastr.bs5.scss";
+
+.vp-helper {
+  display: none;
+  width: none;
+  @each $breakpoint, $value in $grid-breakpoints {
+    @include media-breakpoint-only($breakpoint) {
+      --#{$prefix}vp-helper: #{$breakpoint};
+    }
+  }
+}
+
+.tooltip,
+.tooltip .arrow {
+  position: absolute;
+}
+
+.page-link {
+  &:hover,
+  &:focus,
+  &.active,
+  .active > & {
+    z-index: unset;
+  }
+}
+
+.btn-close {
+  // Para poder definir color automático según modal
+  background: transparent;
+  // Para alinear de forma correcta la 'X' de los modales
+  width: unset;
+  height: unset;
+}
+
+.dropdown-menu {
+  .dropdown-item {
+    position: relative;
+    cursor: pointer;
+  }
+}
+
+.text-link {
+  @extend a;
+}
+
+.btn {
+  position: relative;
+}
+
+.card-footer {
+  background-color: $card-cap-footer-bg;
+  color: $card-cap-footer-color;
+}
+.card {
+  .card-footer {
+    background-color: $card-cap-footer-bg;
+    color: $card-cap-footer-color;
+  }
+  .card-subtitle {
+    font-size: $small-font-size;
+  }
+
+  &.card-sm {
+    .card-header {
+      padding: #{math.div($card-spacer-y, 2)} #{math.div($card-spacer-x, 2)};
+    }
+    .card-footer {
+      padding: #{math.div($card-spacer-y, 2)} #{math.div($card-spacer-x, 2)};
+    }
+    .card-body {
+      padding: #{math.div($card-spacer-y, 2)} #{math.div($card-spacer-x, 2)};
+    }
+  }
+}
+
+// .tab-content {
+//   @extend .p-3;
+//   @extend .border-start;
+//   @extend .border-end;
+//   @extend .border-bottom;
+// }
+
+.nav-item {
+  cursor: pointer;
+}
+
+.form-control[readonly] {
+  background-color: inherit;
+}
+
+.btn-xs {
+  font-size: 0.8rem;
+  padding: 0 0.2rem;
+}
+.btn.btn-link:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/** CHECKBOX **/
+.custom-control-label {
+  &::before,
+  &::after {
+    left: -1.3rem;
+  }
+}
+@each $color, $value in $theme-colors {
+  .text-#{$color}.custom-checkbox,
+  .text-#{$color} .custom-checkbox {
+    .custom-control-input:checked ~ .custom-control-label::after,
+    .custom-control-input:checked ~ .custom-control-label::before {
+      background-color: $value;
+    }
+    .custom-control-input:checked ~ .custom-control-label::before {
+      color: color-contrast($value);
+      border-color: $value;
+    }
+  }
+}
+@for $var from 1 to 5 {
+  .fs-#{$var} {
+    font-size: #{(1 + (0.15 * $var))}rem !important;
+  }
+}
+@for $var from 1 to 10 {
+  .opacity-#{$var} {
+    opacity: #{0.1 * $var};
+  }
+}
+
+// ----------
+// .btn-primary {
+//     background-color: map-get($theme-colors, "primary-light");
+// }

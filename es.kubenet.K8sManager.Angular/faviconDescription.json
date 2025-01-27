@@ -1,0 +1,71 @@
+{
+  "masterPicture": "src/assets/img/logo/logo.png",
+  "iconsPath": "/assets/favicon",
+  "design": {
+    "ios": {
+      "pictureAspect": "backgroundAndMargin",
+      "backgroundColor": "#ffffff",
+      "margin": "21%",
+      "assets": {
+        "ios6AndPriorIcons": true,
+        "ios7AndLaterIcons": true,
+        "precomposedIcons": true,
+        "declareOnlyDefaultIcon": true
+      }
+    },
+    "desktopBrowser": {
+      "design": "background",
+      "backgroundColor": "#ffffff",
+      "backgroundRadius": 0.05,
+      "imageScale": 1
+    },
+    "windows": {
+      "pictureAspect": "noChange",
+      "backgroundColor": "#bbbbbb",
+      "onConflict": "override",
+      "assets": {
+        "windows80Ie10Tile": true,
+        "windows10Ie11EdgeTiles": {
+          "small": true,
+          "medium": true,
+          "big": true,
+          "rectangle": true
+        }
+      }
+    },
+    "androidChrome": {
+      "pictureAspect": "backgroundAndMargin",
+      "margin": "10%",
+      "backgroundColor": "#ffffff",
+      "themeColor": "#0e224d",
+      "manifest": {
+        "name": "K8sManager",
+        "display": "standalone",
+        "orientation": "notSet",
+        "onConflict": "override",
+        "declared": true
+      },
+      "assets": {
+        "legacyIcon": true,
+        "lowResolutionIcons": true
+      }
+    },
+    "safariPinnedTab": {
+      "pictureAspect": "blackAndWhite",
+      "threshold": 90.78125,
+      "themeColor": "#5bbad5"
+    }
+  },
+  "settings": {
+    "compression": 5,
+    "scalingAlgorithm": "Mitchell",
+    "errorOnImageTooSmall": false,
+    "readmeFile": true,
+    "htmlCodeFile": true,
+    "usePathAsIs": false
+  },
+  "versioning": {
+    "paramName": "v",
+    "paramValue": 1
+  }
+}

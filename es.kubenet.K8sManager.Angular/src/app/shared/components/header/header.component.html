@@ -1,0 +1,16 @@
+<div class="header-body">
+  <div class="row align-items-end">
+    <div class="col"
+      >
+      <h1 class="header-title"><ng-content></ng-content></h1>
+    </div>
+    <div #wrapActions
+      class="col-lg-auto text-lg-end mt-3 mt-lg-0"
+      [class]="{
+        'd-none': (wrapActions?.childNodes?.length ?? 0) === 0
+      }"
+      >
+      <ng-content select="[slot=actions]"></ng-content>
+    </div>
+  </div>
+</div>

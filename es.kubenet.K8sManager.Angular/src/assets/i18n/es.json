@@ -1,0 +1,133 @@
+{
+  "API": {
+    "ERROR": {
+      "AUTH": {
+        "PASS": {
+          "FAIL": "Datos incorrectos"
+        }
+      },
+      "STATUSCODE": {
+        "0": {
+          "BODY": "Por favor, comprueba tu conexión.",
+          "TITLE": "Sin conexión con el servicio"
+        },
+        "500": {
+          "BODY": "El servicio ha devuelto un informe de excepción.",
+          "TITLE": "No se ha podido realizar la acción"
+        }
+      }
+    }
+  },
+  "APP_NAME": "K8sManager",
+  "COMPONENT": {
+    "DATATABLE": {
+      "ACTION": {
+        "GOTO": {
+          "DETAILS": "Detalles"
+        }
+      },
+      "LABEL": {
+        "NODATA": "No hay datos"
+      }
+    }
+  },
+  "FORMAT": {
+    "MOMENT": {
+      "DATE": "DD/MM/YYYY",
+      "TIME24": "HH:mm:ss"
+    }
+  },
+  "GENERIC": {
+    "BTN": {
+      "CLOSE": "Cerrar",
+      "GO_HOME": "Inicio",
+      "GOTO": {
+        "LIST": "Ir al listado"
+      },
+      "LOGOUT": "Cerrar sesión",
+      "SAVE": "Guardar"
+    },
+    "LABEL": {
+      "LOADING": "Cargando..."
+    }
+  },
+  "LANG": {
+    "_PICKER": {
+      "LABEL": "Cambiar idioma"
+    },
+    "EN": "English",
+    "EN_SHORT": "EN",
+    "ES": "Castellano",
+    "ES_SHORT": "ES"
+  },
+  "MENU": {
+    "PAGE": {
+      "COMPANY": {
+        "MAIN": "Empresa"
+      },
+      "EMPLOYEE": {
+        "DETAILS": "Detalles",
+        "LIST": "Listado",
+        "MAIN": "Empleados",
+        "NEW": "Nuevo"
+      },
+      "HOME": "Inicio"
+    }
+  },
+  "no": "no",
+  "PAGE": {
+    "DASHBOARD": {
+      "TITLE": "Inicio"
+    },
+    "EMPLOYEE": {
+      "DETAILS": {
+        "NAME": "Nombre",
+        "SURNAME1": "Apellido",
+        "SURNAME2": "Segundo apellido",
+        "TITLE": "Empleados - Detalles"
+      },
+      "LIST": {
+        "NAME": "Nombre",
+        "SURNAME1": "Primer apellido",
+        "SURNAME2": "Segundo apellido",
+        "TITLE": "Empleados - Lista"
+      }
+    },
+    "ERROR": {
+      "404": {
+        "BODY": "No hemos podido dirigirte a la página.",
+        "TITLE": "404 - Página no encontrada"
+      }
+    }
+  },
+  "PAGES": {
+    "AUTH": {
+      "LOGIN": {
+        "LABEL": {
+          "NOT_AVAILABLE": "No es posible iniciar sesión en este momento",
+          "PASSWORD": "Contraseña",
+          "REMEMBERME": "Permanecer conectado",
+          "USERNAME": "Usuario"
+        }
+      }
+    },
+    "MAIN": {
+      "MODAL": {
+        "LOGOUT": {
+          "BODY": "¿Seguro que quieres cerrar la sesión? Tu sesión terminará de forma inmediata, pero podrás iniciar otra más adelante.",
+          "HEADER": "Vas a cerrar tu sesión"
+        }
+      }
+    }
+  },
+  "SERVICEWORKER": {
+    "MODAL": {
+      "BODY": "Hay disponible una nueva versión de esta app web. Aunque se lanzará la próxima vez que accedas a la aplicación web, recomendamos que actualices cuanto antes.",
+      "BTN": {
+        "CLOSE": "Dejarlo para luego",
+        "CONFIRM": "Actualizar ahora"
+      },
+      "HEADER": "Nueva versión disponible"
+    }
+  }
+}

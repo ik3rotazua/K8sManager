@@ -1,0 +1,37 @@
+# System Files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.tmp
+
+# Git
+.gitignore
+.gitattributes
+
+# Docker
+dockerfile*
+*.dockerignore
+
+# IDE
+.vs
+.vscode
+.editorconfig
+.idea
+
+# Excluded projects
+es.kubenet.K8sManager.Angular/
+es.kubenet.K8sManager.Angular.Nginx/
+
+# Dependencies
+**/node_modules/
+**/bower_components/
+**/bin/
+**/obj/
+
+# .net files
+*.csproj.user
+**/*.Development.json
+
+# Project ignores
+es.kubenet.K8sManager.MainGateway/sql-migrations/

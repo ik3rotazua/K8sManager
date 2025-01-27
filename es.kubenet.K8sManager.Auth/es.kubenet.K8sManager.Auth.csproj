@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\**" />
+    <Compile Remove="Middleware\**" />
+    <Compile Remove="Utilities\**" />
+    <Compile Remove="_Internal\**" />
+    <EmbeddedResource Remove="Controllers\**" />
+    <EmbeddedResource Remove="Middleware\**" />
+    <EmbeddedResource Remove="Utilities\**" />
+    <EmbeddedResource Remove="_Internal\**" />
+    <None Remove="Controllers\**" />
+    <None Remove="Middleware\**" />
+    <None Remove="Utilities\**" />
+    <None Remove="_Internal\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="es.efor.Auth" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\es.kubenet.K8sManager.Data\es.kubenet.K8sManager.Data.csproj" />
+    <ProjectReference Include="..\es.kubenet.K8sManager.Infraestructure\es.kubenet.K8sManager.Infraestructure.csproj" />
+  </ItemGroup>
+
+</Project>

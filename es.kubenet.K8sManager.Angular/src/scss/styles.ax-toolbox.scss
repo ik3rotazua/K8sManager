@@ -1,0 +1,129 @@
+$cdk-z-index-overlay-container: $zindex-modal + 10;
+$cdk-z-index-overlay-container-belowmodal: $zindex-modal-backdrop - 10;
+$overlay-container-z-index: $cdk-z-index-overlay-container;
+$ax-bs-form-autocomplete-result-margintop: -1px;
+
+// $ax-bs-menu-side-color: ;
+// $ax-bs-datatable-btn-filter-outline: true;
+// $ax-bs-datatable-btn-filter-used-outline: $ax-bs-datatable-btn-filter-outline;
+
+@import "/node_modules/@angular/cdk/overlay/index";
+@include overlay();
+
+@import '/node_modules/@efordevelops/ax-toolbox/scss/ax-animations.scss';
+@import '/node_modules/@efordevelops/ax-toolbox/scss/ax-bs-utils.scss';
+@import '/node_modules/@efordevelops/ax-toolbox/scss/ax-bs-form-autocomplete.scss';
+@import '/node_modules/@efordevelops/ax-toolbox/scss/ax-bs-menu.scss';
+@import '/node_modules/@efordevelops/ax-toolbox/scss/ax-bs-menu-content.scss';
+@import '/node_modules/@efordevelops/ax-toolbox/scss/ax-progress-bar-circle';
+@import '/node_modules/@efordevelops/ax-toolbox/scss/ax-bs-breadcrumb.scss';
+
+
+@import "/node_modules/@efordevelops/ax-toolbox/scss/ax-bs-datatable.scss";
+@import "/node_modules/@efordevelops/ax-toolbox/scss/ax-bs-form-checkbox.scss";
+
+// ax-bs-form-checkbox {
+//   // $app-checkbox-color-default: map-get($theme-colors, 'bc');
+//   // $app-checkbox-color-default-light: rgba($app-checkbox-color-default, 0.3);
+
+//   // @include decorate-checkbox($app-checkbox-color-default, null, color-contrast($app-checkbox-color-default));
+//   // .custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
+//   //   border-color: $app-checkbox-color-default;
+//   // }
+//   // .custom-control-input:not(:disabled):active ~ .custom-control-label::before {
+//   //   background-color: $app-checkbox-color-default-light;
+//   //   border-color: $app-checkbox-color-default-light;
+//   // }
+//   // .custom-control-input:focus ~ .custom-control-label::before {
+//   //   box-shadow: 0 0 0 0.2rem $app-checkbox-color-default-light;
+//   // }
+// }
+
+.cdk-overlay-container {
+  &.cdk-overlay-below-modal {
+    z-index: $cdk-z-index-overlay-container-belowmodal;
+  }
+}
+
+ax-bs-menu {
+  overflow: auto;
+
+  .navbar-langbar {
+    display: flex;
+    .navbar-nav {
+      flex-direction: row;
+      .nav-link {
+        padding-right: 0.5rem;
+        padding-left: 0.5rem;
+      }
+    }
+  }
+}
+
+ax-bs-datatable {
+  thead,
+  tbody {
+    .thead-col-picker {
+      min-width: 200px;
+    }
+
+    .form-control[readonly] {
+      background-color: #fff;
+    }
+  }
+
+  pagination {
+    >.pagination {
+      @extend .pagination-sm;
+    }
+  }
+}
+
+ax-bs-base-modal-header {
+  .modal-title {
+    color: inherit;
+  }
+  &.bg-primary {
+    .btn-close {
+      color: inherit;
+      opacity: 1;
+    }
+  }
+  &.no-padding-body {
+    + ax-bs-base-modal-body {
+      .modal-body {
+        padding: 0;
+      }
+    }
+  }
+}
+
+ax-bs-base-modal-body {
+  .ax-bs-datatable-modal {
+    &.ax-bs-datatable-modal-column-setup {
+      .table-sm {
+        td {
+          padding-top: .08rem;
+          padding-bottom: .08rem;
+
+          .btn {
+            &.btn-sm {
+              padding: 0.25rem 0.25rem;
+              line-height: 1.2;
+
+              font-size {
+                font-size: .7rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.form-autocomplete-results {
+  max-height: 165px;
+  overflow: auto;
+  background-color: $body-bg;
+}

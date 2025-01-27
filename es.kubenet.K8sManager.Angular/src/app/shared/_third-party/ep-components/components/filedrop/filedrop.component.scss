@@ -1,0 +1,88 @@
+:host{
+    position: relative;
+    display: block;
+    overflow: hidden;
+    outline: 3px dashed rgb(105, 172, 192);
+    background-color: #f2faff;
+    min-height: 200px;
+    
+    .link {
+        font-weight: bold;
+        color: rgb(105, 172, 192);
+        text-shadow: 0 0 4px white;
+        &:hover{
+            color: rgb(16, 120, 151);
+        }
+    }
+    .truncated {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .fullheight{
+        height: 100%;
+    }
+    .overlay {
+        background-color: rgba(255,255,255,.7);
+        position: absolute;
+        text-align: center;
+        top:0;
+        right:0;
+        bottom:0;
+        left:0;
+    }
+    .overflow-scroll {
+        overflow: auto;
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+    .no-bg {
+        background-color: transparent;
+    }
+    .file-wrapper {
+        padding: 4px;
+        text-align: center;
+        .file-box {
+            border: 2px solid rgb(105, 172, 192);
+            padding: 2px;
+
+            .status {
+                font-weight: bold;
+                &.status-success {
+                    color: rgb(39, 170, 39);
+                }
+                &.status-error {
+                    color: rgb(170, 39, 39);
+                }
+                &.status-iddle {
+                    color: rgb(16, 120, 151);
+                }
+            }
+        }
+    }
+    .message-box {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%); 
+        width: 200px;
+        margin: 0 auto;
+        max-width: calc(100% - 20px);
+
+        &.fullicon {
+            font-size: 120px;
+            height: 150px;
+            width: 150px;
+            border: 1px solid rgba(0,0,0,.7);
+            border-radius: 50%;
+            color: rgb(16, 120, 151);
+            opacity: .2;
+            overflow: hidden;
+
+            fa-icon::ng-deep {
+                svg {
+                    vertical-align: top;
+                }
+            }
+        }
+    }
+}

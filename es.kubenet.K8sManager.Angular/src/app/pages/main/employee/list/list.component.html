@@ -1,0 +1,8 @@
+<ax-bs-datatable
+  #dt
+  [labelNoData]="'COMPONENT.DATATABLE.LABEL.NODATA' | translate"
+  [columns]="dtColumns"
+  [actionButtonShowFilter]="true"
+  [actionButtons]="dtBtns"
+  [dataGetterFn]="dtGetterFn.bind(this)"
+></ax-bs-datatable>

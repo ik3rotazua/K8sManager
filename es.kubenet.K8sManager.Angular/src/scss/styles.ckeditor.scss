@@ -1,0 +1,23 @@
+@import './styles.bootstrap.basic.scss';
+
+.ck-body-wrapper {
+  .ck.ck-balloon-panel {
+    z-index: $zindex-modal-backdrop + 10;
+  }
+}
+.ck-editor__editable_inline {
+    /** X% of the current viewport's height */
+    min-height: 35vh;
+}
+ckeditor[required],
+ckeditor[required=true] {
+    .ck {
+        &.ck-editor__top,
+        &.ck-editor__main>.ck-editor__editable:not(.ck-focused) {
+            border-color: theme-color("info");
+        }
+        &.ck-editor__main>.ck-editor__editable:not(.ck-focused) {
+            background-color: theme-color-level("info", -12);
+        }
+    }
+}

@@ -1,0 +1,163 @@
+.navbar-vertical:not([style*="display: none"]) ~  .main-content,
+.navbar-vertical-sm:not([style*="display: none"]) ~  .main-content {
+  
+  .container,
+  .container-fluid {
+
+    @include media-breakpoint-up(md) {
+      padding-left: ($main-content-padding-x + $grid-gutter-width * 0) !important;
+      padding-right: ($main-content-padding-x + $grid-gutter-width * 0) !important; 
+    }
+  }
+}
+
+// Main content offset
+//
+// Offsets the main content depending on the sidebar positioning
+
+.navbar-vertical.navbar-expand {
+  
+  @each $breakpoint, $value in $grid-breakpoints {
+    &-#{$breakpoint} {
+      @include media-breakpoint-up(#{$breakpoint}) {
+
+        // Left
+
+        &.fixed-start:not([style*="display: none"]) ~ .main-content {
+          margin-left: $navbar-vertical-width;
+        }
+
+        // Right
+
+        &.fixed-end:not([style*="display: none"]) ~ .main-content {
+          margin-right: $navbar-vertical-width;
+        }
+      }
+    }
+  }
+}
+
+.navbar-vertical-sm.navbar-expand {
+  
+  @each $breakpoint, $value in $grid-breakpoints {
+    &-#{$breakpoint} {
+      @include media-breakpoint-up(#{$breakpoint}) {
+
+        // Left
+
+        &.fixed-start:not([style*="display: none"]) ~ .main-content {
+          margin-left: $navbar-vertical-width-sm;
+        }
+
+        // Right
+
+        &.fixed-end:not([style*="display: none"]) ~ .main-content {
+          margin-right: $navbar-vertical-width-sm;
+        }
+      }
+    }
+  }
+}
+
+.card {
+  .card-header {
+    position: relative;
+  }
+}
+
+.nav-item {
+  position: relative;
+
+  > fa-icon,
+  > span > fa-icon,
+  > .nav-link > fa-icon {
+    @extend .me-2;
+  }
+}
+
+.navbar-vertical {
+  .navbar-nav {
+    .nav-link {
+      &.has-collapse {
+        &:after {
+          display: block;
+          content: "\e92e";
+          font-family: "Feather";
+          margin-left: auto;
+          transition: transform 0.2s;
+        }
+        // Expanded
+        &.is-expanded {
+          &:after {
+            transform: rotate(-180deg);
+          }
+        }
+      }
+    }
+  }
+}
+
+accordion {
+  .card {
+    --#{$prefix}card-spacer-y: 0.5rem;
+    --#{$prefix}card-spacer-x: 0.5rem;
+  }
+
+  accordion-group {
+    &.panel {
+      .panel {
+        margin-bottom: 0;
+        
+        color: $accordion-button-active-color;
+        background-color: $accordion-button-active-bg;
+        
+        transition: all 0.2s;
+
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+
+        .panel-heading {
+          border-color: rgba(255, 255, 255, 0);
+
+          .panel-title {
+            .accordion-toggle {
+              .btn.btn-link {
+                color: inherit;
+                padding: 0;
+              }
+            }
+          }
+
+          &.card-header {
+            color: inherit;
+            background-color: rgba(255, 255, 255, 0);
+          }
+        }
+      }
+    }
+    &.panel:not(.panel-open) {
+      .panel {
+        color: $accordion-button-color;
+        background-color: $accordion-button-bg;
+      }
+    }
+
+    &:first-child {
+      &.panel {
+        > .panel {
+          @include border-top-radius($accordion-border-radius);
+        }
+      }
+    }
+
+    &:last-child {
+      &.panel {
+        > .panel {
+          @include border-bottom-radius($accordion-border-radius);
+        }
+      }
+    }
+  }
+}

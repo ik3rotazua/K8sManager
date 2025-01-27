@@ -1,0 +1,31 @@
+@import '/src/scss/styles.bootstrap.basic.scss';
+
+.timing-children {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+
+  .timing-child {
+    position: relative;
+    display: block;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: $list-group-item-padding-x;
+    padding-right: 0;
+    color: $list-group-color;
+    text-decoration: if($link-decoration == none, null, none);
+    background-color: $list-group-bg;
+    border-left: $list-group-border-width solid $list-group-border-color;
+    border-bottom: $list-group-border-width solid $list-group-border-color;
+  }
+}
+
+.sql-query {
+  .sql-query-toolbar {
+    position: sticky;
+    top: 0;
+
+    background-color: inherit;
+  }
+}

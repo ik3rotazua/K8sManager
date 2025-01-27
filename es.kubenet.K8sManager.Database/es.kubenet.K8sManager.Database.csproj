@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="es.efor.Utilities.Web" Version="1.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\es.kubenet.K8sManager.Auth\es.kubenet.K8sManager.Auth.csproj" />
+    <ProjectReference Include="..\es.kubenet.K8sManager.Business.Core\es.kubenet.K8sManager.Business.Core.csproj" />
+    <ProjectReference Include="..\es.kubenet.K8sManager.Data\es.kubenet.K8sManager.Data.csproj" />
+    <ProjectReference Include="..\es.kubenet.K8sManager.Infraestructure\es.kubenet.K8sManager.Infraestructure.csproj" />
+    <ProjectReference Include="..\es.kubenet.K8sManager.Utilities.ConsoleUtilities\es.kubenet.K8sManager.Utilities.ConsoleUtilities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DbSeeding\Models\" />
+  </ItemGroup>
+
+</Project>

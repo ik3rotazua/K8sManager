@@ -1,0 +1,36 @@
+<div class="container-fluid">
+  <ng-container [ngTemplateOutlet]="tmplMain"></ng-container>
+
+  <ng-container [ngTemplateOutlet]="tmplUser"></ng-container>
+
+
+</div>
+
+<ng-template #tmplMain>
+  <div class="d-flex align-items-center">
+    <button
+      *ngIf="sidebar"
+      type="button"
+      class="btn btn-ghost btn-sm d-flex align-items-center py-2 me-2"
+      (click)="sidebar.toggle()"
+    >
+      <fa-icon
+        [fixedWidth]="true"
+        [icon]="_iconMenuToggle"
+      ></fa-icon>
+    </button>
+
+    <fa-icon
+      [fixedWidth]="true"
+      [icon]="_iconDivider"
+    ></fa-icon>
+
+    <ng-content></ng-content>
+  </div>
+</ng-template>
+
+<ng-template #tmplUser>
+  <div class="navbar-user">
+    <ng-content select="[slot=navbar-user]"></ng-content>
+  </div>
+</ng-template>

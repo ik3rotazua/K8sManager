@@ -1,0 +1,29 @@
+FROM node:20-alpine AS step-build
+
+RUN mkdir -p /src
+RUN mkdir -p /dist
+WORKDIR /src
+# Si cambia el package.json o el lock, es porque se han cambiado
+# las dependencias. Hay que forzar autenticación e instalación.
+COPY es.kubenet.K8sManager.Angular/package.json .
+COPY es.kubenet.K8sManager.Angular/package-lock.json .
+RUN npm ci
+
+COPY es.kubenet.K8sManager.Angular/ .
+RUN npm run build:prod \
+  && mv /src/dist/k8smanager /dist
+
+
+FROM nginxinc/nginx-unprivileged:alpine3.19
+COPY --from=step-build /dist/k8smanager/ /usr/share/nginx/html/
+WORKDIR /app
+COPY es.kubenet.K8sManager.Angular.Nginx/app.conf /etc/nginx/conf.d/default.conf
+COPY es.kubenet.K8sManager.Angular.Nginx/nginx.conf /etc/nginx/nginx.conf
+
+# Respaldo para las traducciones
+COPY es.kubenet.K8sManager.MainGateway/Assets/Locales/ /usr/share/nginx/html/assets/i18n/
+
+# El puerto debe coincidir con el definido en la configuración
+# de la aplicación para Nginx.
+EXPOSE 8081
+CMD ["nginx", "-g", "daemon off;"]

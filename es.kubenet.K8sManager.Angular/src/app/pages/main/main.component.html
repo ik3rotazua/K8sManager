@@ -1,0 +1,119 @@
+<app-nav-sidebar
+  #navSidebar
+  [menuItems]="_menuItems"
+  [class]="'text-bg-light'"
+>
+  <ng-container slot="navbar-user">
+
+  </ng-container>
+
+  <ng-container slot="header">
+  </ng-container>
+
+  <ng-container slot="footer">
+    <div class="d-block d-md-none">
+      <ul class="navbar-nav">
+        <ng-container
+          [ngTemplateOutlet]="tmplUserAccountMenuItems"
+          [ngTemplateOutletContext]="{
+            cssClassItem: 'nav-item',
+            cssClassItemWrapper: 'nav-link'
+          }"
+        ></ng-container>
+      </ul>
+    </div>
+  </ng-container>
+</app-nav-sidebar>
+
+<div class="main-content">
+  <app-nav-topbar
+    [sidebar]="navSidebar"
+    [class]="'text-bg-light'"
+  >
+    <ng-container slot="navbar-user">
+      <ng-container [ngTemplateOutlet]="tmplUserAccountMenu"></ng-container>
+    </ng-container>
+  </app-nav-topbar>
+  <ax-bs-breadcrumb class="breadcrumb-container navbar navbar-expand-lg border-top mt-n1 mt-md-0"></ax-bs-breadcrumb>
+
+  <div class="container-fluid pb-3 mt-3">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+
+<ax-bs-modal-confirmation-message
+  #modalLogout
+  [labelHeader]="'PAGES.MAIN.MODAL.LOGOUT.HEADER' | translate"
+  [btnLabelClose]="'GENERIC.BTN.CLOSE' | translate"
+>
+  <ng-container slot="body">
+    <p>{{'PAGES.MAIN.MODAL.LOGOUT.BODY' | translate}}</p>
+  </ng-container>
+</ax-bs-modal-confirmation-message>
+
+
+<ng-template #tmplUserAccountMenu>
+  <div
+    class="dropdown"
+    dropdown
+  >
+    <button
+      dropdownToggle
+      type="button"
+      class="btn btn-sm btn-ghost d-flex align-items-center"
+    >
+      <div class="avatar avatar-xs me-2">
+        <app-img
+          [class]="'avatar-img rounded-circle me-1'"
+          [src]="userAvatarSrc ?? '/assets/img/logo/logo.svg'"
+          [alt]="userName"
+        ></app-img>
+      </div>
+      {{userName}}
+      <fa-icon
+        [fixedWidth]="true"
+        [icon]="_iconChevronDown"
+      ></fa-icon>
+    </button>
+    <ul
+      *dropdownMenu
+      id="dropdown-basic"
+      role="menu"
+      class="dropdown-menu dropdown-menu-end mt-2 shadow shadow-sm pt-0"
+      aria-labelledby="button-basic"
+    >
+      <ng-container [ngTemplateOutlet]="tmplUserAccountMenuItems"></ng-container>
+    </ul>
+  </div>
+</ng-template>
+
+<ng-template #tmplUserAccountMenuItems>
+  @if (_languages.length > 1) {
+  @for (lang of _languages; track lang;) {
+  <li
+    role="menuitem"
+    [class]="{
+        'dropdown-item': true,
+        'active': lang === _currentLang
+      }"
+    (click)="setAppLang(lang)"
+  ><span>{{('LANG.' + lang) | uppercase | translate}}</span></li>
+  }
+  }
+  <li
+    role="menuitem"
+    [class]="{
+      'dropdown-item': true
+    }"
+    (click)="onBtnClickLogout()"
+  >
+    <span class="text-danger">
+      <fa-icon
+        [fixedWidth]="true"
+        [icon]="_iconSignOut"
+      ></fa-icon>
+      {{'GENERIC.BTN.LOGOUT' | translate}}
+    </span>
+  </li>
+</ng-template>

@@ -1,0 +1,33 @@
+<div
+  class="background"
+  [style]="{ backgroundImage: _backgroundImg }"
+></div>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-6 col-xl-4 my-5">
+      <div class="card m-0">
+        <div class="card-body">
+          <!-- Brand -->
+          <div class="d-flex justify-content-center mb-4">
+            <img
+              src="/assets/img/logo/logo-banner.svg"
+              class="navbar-brand-img"
+              [alt]="'APP_NAME' | translate"
+              style="min-height: 3rem;"
+            >
+          </div>
+          <!-- Subheading -->
+          <!-- <p class="text-muted text-center mb-5">
+                      Lorem, ipsum dolor.
+                    </p> -->
+
+          <app-auth-form
+            [returnUrl]="_returnUrl"
+            [extraErrorMessage]="_errorMessage"
+          ></app-auth-form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

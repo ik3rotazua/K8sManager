@@ -1,0 +1,39 @@
+# System Files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.tmp
+
+# Git
+.gitignore
+.gitattributes
+
+# Docker
+dockerfile*
+*.dockerignore
+
+# IDE
+.vs
+.vscode
+.editorconfig
+.idea
+
+# Excluded projects
+*
+!es.kubenet.K8sManager.Angular
+!es.kubenet.K8sManager.Angular.Nginx
+!es.kubenet.K8sManager.MainGateway/Assets/Locales
+
+# Dependencies
+**/node_modules/
+**/bower_components/
+**/bin/
+**/obj/
+
+# Angular
+**/.angular
+**/dev-certs/
+**/dist
+**/tmp
+**/out-tsc

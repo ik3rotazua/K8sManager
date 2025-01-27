@@ -1,0 +1,49 @@
+// Funciones (para manipular colores, SVG, cálculos, etc.)
+@import "bootstrap/scss/functions";
+
+// Anulación de variables predeterminadas
+@import './theme/variables';
+@import './theme/variables-dark';
+
+
+// Funciones personalizadas y mixins
+@import "./theme/mixins";
+
+// Utilidades
+@import "./theme/utilities";
+
+// Opcionalmente la API de utilidades al final para generar clases basadas en el mapa Sass en `_utilities.scss`
+@import "bootstrap/scss/utilities/api";
+
+// Código personalizado
+@import "./theme/root";
+@import "./theme/reboot";
+@import "./theme/type";
+@import "./theme/tables";
+@import "./theme/forms";
+@import "./theme/buttons";
+@import "./theme/dropdown";
+@import "./theme/nav";
+@import "./theme/navbar";
+@import "./theme/card";
+@import "./theme/accordion";
+@import "./theme/breadcrumb";
+@import "./theme/pagination";
+@import "./theme/badge";
+@import "./theme/alert";
+@import "./theme/progress";
+@import "./theme/list-group";
+@import "./theme/close";
+@import "./theme/toasts";
+@import "./theme/modal";
+@import "./theme/tooltip";
+@import "./theme/popover";
+@import "./theme/offcanvas";
+@import './theme/avatar';
+@import './theme/chart';
+@import './theme/checklist';
+@import './theme/header';
+@import './theme/icon';
+@import './theme/main-content';
+@import './theme/vendor';
+@import "./theme/helpers";

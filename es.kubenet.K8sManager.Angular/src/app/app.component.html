@@ -1,0 +1,42 @@
+<router-outlet></router-outlet>
+
+@if (_isReady) {
+  <app-ep-fullscreen-img [btnCloseLabel]="'GENERIC.BTN.CLOSE' | translate"></app-ep-fullscreen-img>
+}
+
+<div
+  *ngIf="_showUpdateDialog"
+  class="message-bar fixed bottom animated"
+  [class]="{
+    'fade-in-up' : _updateAvailable,
+    'fade-out-down': !_updateAvailable
+  }"
+>
+  <p>
+    {{'SERVICEWORKER.MODAL.BODY' | translate}}
+  </p>
+  <div class="btn btn-group">
+    <button
+      type="button"
+      class="btn btn-sm btn-success"
+      (click)="onUpdateAccept($event)"
+      [disabled]="_updateInProgress"
+    >
+      <fa-icon
+        *ngIf="_updateInProgress"
+        [fixedWidth]="true"
+        [icon]="iconLoading"
+        [spin]="true"
+      ></fa-icon>
+      {{'SERVICEWORKER.MODAL.BTN.CONFIRM' | translate}}
+    </button>
+    <button
+      type="button"
+      class="btn btn-sm btn-secondary"
+      (click)="onUpdateDecline($event)"
+      [disabled]="_updateInProgress"
+    >
+      {{'SERVICEWORKER.MODAL.BTN.CLOSE' | translate}}
+    </button>
+  </div>
+</div>

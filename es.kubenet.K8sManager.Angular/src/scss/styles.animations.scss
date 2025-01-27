@@ -1,0 +1,33 @@
+@import './styles.animations.keyframes.scss';
+
+.fade-in {
+    animation: anim-fade-in;
+    animation-duration: .3s;
+    animation-fill-mode: forwards;
+}
+.fade-out {
+    animation: anim-fade-out;
+    animation-duration: .3s;
+    animation-fill-mode: forwards;
+}
+
+.fade-in-down {
+    animation: anim-fade-in-down;
+    animation-duration: .3s;
+    animation-fill-mode: forwards;
+}
+.fade-in-up {
+    animation: anim-fade-in-up;
+    animation-duration: .3s;
+    animation-fill-mode: forwards;
+}
+.fade-out-down {
+    animation: anim-fade-out-down;
+    animation-duration: .3s;
+    animation-fill-mode: forwards;
+}
+.fade-out-up {
+    animation: anim-fade-out-up;
+    animation-duration: .3s;
+    animation-fill-mode: forwards;
+}

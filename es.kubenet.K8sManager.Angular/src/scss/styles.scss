@@ -1,0 +1,252 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+@import "./styles.bootstrap.scss";
+
+@import "./styles.animations.scss";
+@import "./styles.ckeditor.scss";
+// @import './styles.owl-carousel.scss';
+// @import './styles.leaflet.scss';
+@import "./styles.ax-toolbox.scss";
+
+@import "./styles.ngx-bootstrap.accordion.scss";
+
+html {
+  scroll-behavior: smooth;
+}
+
+.page-toolbar {
+  display: flex;
+  justify-content: end;
+  position: sticky;
+  z-index: 1;
+
+  background-color: var(--#{$prefix}body-bg);
+  border-bottom: 3px solid var(--#{$prefix}primary);
+  @extend .pb-2;
+
+  &.page-toolbar-top {
+    top: 0;
+    @extend .mb-3;
+  }
+  &.page-toolbar-botton {
+    bottom: 0;
+    @extend .mt-3;
+  }
+}
+
+.btn-group {
+  >app-btn {
+    @extend .btn-group;
+  }
+}
+
+.btn-floating-badge {
+  position: relative;
+
+  .badge {
+    position: absolute;
+    top: unset;
+    left: unset;
+    right: -17px;
+    bottom: -5px;
+  }
+}
+
+.notification-list-wrapper {
+  width: 400px;
+  max-width: 100vw;
+}
+
+.footer-formbuttons {
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+
+  // @extend .py-2;
+  // @extend .border-top;
+  background-color: $body-bg;
+}
+
+.transform-capitalize {
+  text-transform: capitalize;
+}
+.text-decoration-line-through {
+  text-decoration: line-through;
+}
+
+.post-content {
+  a {
+    @extend .text-primary;
+  }
+}
+
+.searchbox-result-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  img {
+    transform: scale(1.05);
+    transition: transform 0.3s;
+  }
+  &:hover {
+    img {
+      transform: scale(1);
+    }
+  }
+}
+
+.album-item-thumbnail {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+
+  img.album-item-thumbnail-image {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+
+    &.image-contain {
+      object-fit: contain;
+    }
+  }
+
+  .album-item-thumbnail-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+
+    .album-item-check {
+      position: absolute;
+      color: white;
+      left: 4px;
+      bottom: 4px;
+    }
+    .album-item-filename {
+      text-align: center;
+      color: #fff;
+      padding: 0 2px;
+      align-self: flex-end;
+      flex: 1 0 auto;
+      width: auto;
+      max-width: 100%;
+
+      background: rgba(0, 0, 0, 0);
+      background: -moz-linear-gradient(
+        top,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.37) 13%,
+        rgba(0, 0, 0, 0.62) 40%,
+        rgba(0, 0, 0, 0.62) 100%
+      );
+      background: -webkit-gradient(
+        left top,
+        left bottom,
+        color-stop(0%, rgba(0, 0, 0, 0)),
+        color-stop(13%, rgba(0, 0, 0, 0.37)),
+        color-stop(40%, rgba(0, 0, 0, 0.62)),
+        color-stop(100%, rgba(0, 0, 0, 0.62))
+      );
+      background: -webkit-linear-gradient(
+        top,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.37) 13%,
+        rgba(0, 0, 0, 0.62) 40%,
+        rgba(0, 0, 0, 0.62) 100%
+      );
+      background: -o-linear-gradient(
+        top,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.37) 13%,
+        rgba(0, 0, 0, 0.62) 40%,
+        rgba(0, 0, 0, 0.62) 100%
+      );
+      background: -ms-linear-gradient(
+        top,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.37) 13%,
+        rgba(0, 0, 0, 0.62) 40%,
+        rgba(0, 0, 0, 0.62) 100%
+      );
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.37) 13%,
+        rgba(0, 0, 0, 0.62) 40%,
+        rgba(0, 0, 0, 0.62) 100%
+      );
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000', GradientType=0 );
+    }
+  }
+}
+
+.bg-image[lazyLoad] {
+  background-image: url("/assets/img/bg-auth.svg");
+}
+
+$cursors: (
+  alias,
+  all-scroll,
+  auto,
+  cell,
+  context-menu,
+  col-resize,
+  copy,
+  crosshair,
+  default,
+  e-resize,
+  ew-resize,
+  grab,
+  grabbing,
+  help,
+  move,
+  n-resize,
+  ne-resize,
+  nesw-resize,
+  ns-resize,
+  nw-resize,
+  nwse-resize,
+  no-drop,
+  none,
+  not-allowed,
+  pointer,
+  progress,
+  row-resize,
+  s-resize,
+  se-resize,
+  sw-resize,
+  text,
+  URL,
+  vertical-text,
+  w-resize,
+  wait,
+  zoom-in,
+  zoom-out,
+  initial,
+  inherit
+);
+@each $var in $cursors {
+  .cursor-#{$var} {
+    cursor: $var !important;
+  }
+}
+
+$scrollbar-width: 10px;
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: #{$scrollbar-width};
+  height: 10px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.3);
+  border-radius: 0px;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 0px;
+  background: $primary;
+  // box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.5);
+}

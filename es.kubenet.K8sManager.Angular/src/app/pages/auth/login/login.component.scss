@@ -1,0 +1,43 @@
+@import "../../../../scss/styles.bootstrap.basic.scss";
+
+:host {
+  .background {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    .bg-image {
+      height: 100%;
+      width: 100%;
+    }
+  }
+  height: 100vh;
+
+  .btn-oauth {
+    &.btn-oauth-ms {
+      $btn-oauth-msg-bg: #fff;
+      $btn-oauth-msg-color: #5e5e5e;
+
+      position: relative;
+
+      height: 41px;
+      vertical-align: middle;
+      padding-left: 12px;
+      padding-right: 12px;
+
+      border: solid 1px #8c8c8c;
+
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      background-color: $btn-oauth-msg-bg;
+      color: $btn-oauth-msg-color;
+
+      > .logo-ms {
+        margin-right: 12px;
+      }
+    }
+  }
+}

@@ -1,0 +1,40 @@
+<button
+  [type]="type"
+  [class]="['btn', 'btn-' + size, 'btn-' + color, _isLoading ? 'active' : '']"
+  [disabled]="disabled || _isLoading"
+  (click)="btnClick.next($event)"
+>
+  @if(_isLoading){
+  <fa-icon
+    [fixedWidth]="true"
+    [icon]="iconIsLoading"
+    [spin]="iconIsLoadingSpin"
+  ></fa-icon>
+  }
+  @else {
+  <fa-icon
+    [fixedWidth]="true"
+    [icon]="icon"
+    [spin]="iconSpin"
+  ></fa-icon>
+  }
+  @if (label && label.length > 0) {
+  {{label}}
+  }
+
+  @if (route) {
+    <a
+      class="stretched-link"
+      [href]="route.href"
+      [routerLink]="route.routerLink"
+      [target]="route.target"
+      [fragment]="route.fragment"
+      [preserveFragment]="route.preserveFragment"
+      [queryParams]="route.queryParams"
+      [queryParamsHandling]="route.queryParamsHandling"
+      [relativeTo]="route.relativeTo"
+      [state]="route.state"
+      [skipLocationChange]="route.skipLocationChange"
+      ></a>
+  }
+</button>

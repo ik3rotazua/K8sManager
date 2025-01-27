@@ -1,0 +1,32 @@
+:host {
+    .loader-absolute {
+        &.loaded {
+            pointer-events: none;
+            animation-name: dissapear;
+            animation-duration: 0.4s;
+            animation-timing-function: ease-out;
+            animation-fill-mode: forwards;
+        }
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        z-index: 512;
+
+        .preloader {
+            // transition-property: opacity;
+            position: unset;
+        }
+    }
+}
+
+@keyframes dissapear {
+    0% {
+    }
+    99%{
+    }
+    100% {
+        overflow: hidden;
+        max-height: 0px;
+        max-width: 0px;
+    }
+}

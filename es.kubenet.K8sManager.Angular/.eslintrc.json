@@ -1,0 +1,119 @@
+{
+  "root": true,
+  "overrides": [
+    {
+      "files": [
+        "*.ts"
+      ],
+      "parserOptions": {
+        "project": [
+          "tsconfig.json",
+          "e2e/tsconfig.json"
+        ],
+        "createDefaultProgram": true
+      },
+      "extends": [
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates"
+      ],
+      "plugins": [
+        "deprecation",
+        "@stylistic/js",
+        "import-newlines"
+      ],
+      "rules": {
+        "no-duplicate-imports": "error",
+        "no-restricted-imports": [
+          "error",
+          {
+            "paths": [
+              {
+                "name": "moment",
+                "importNames": [
+                  "default"
+                ],
+                "message": "Usar 'DateUtilities' en su lugar."
+              }
+            ]
+          }
+        ],
+        "import-newlines/enforce": [
+          "error",
+          {
+            "items": 2,
+            "max-len": 80
+          }
+        ],
+        "max-len": [
+          "error",
+          {
+            "code": 150
+          }
+        ],
+        "indent": [
+          "warn",
+          2,
+          {
+            "SwitchCase": 1
+          }
+        ],
+        "prefer-template": [
+          "error"
+        ],
+        "prefer-const": [
+          "error"
+        ],
+        "deprecation/deprecation": "warn",
+        // "require-await": "error",
+        "no-return-await": "error",
+        "semi": "error",
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "prefix": "app",
+            "style": "kebab-case",
+            "type": "element"
+          }
+        ],
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "prefix": "app",
+            "style": "camelCase",
+            "type": "attribute"
+          }
+        ],
+        "quotes": [
+          "error",
+          "single",
+          {
+            "allowTemplateLiterals": true
+          }
+        ],
+        "no-var": "error",
+        "eqeqeq": [
+          "error",
+          "smart"
+        ],
+        "no-debugger": "error",
+        "@angular-eslint/no-empty-lifecycle-method": "off"
+      }
+    },
+    {
+      "files": [
+        "*.html"
+      ],
+      "extends": [
+        "plugin:@angular-eslint/template/recommended"
+      ],
+      "rules": {
+        "@angular-eslint/template/eqeqeq": [
+          "error",
+          {
+            "allowNullOrUndefined": true
+          }
+        ]
+      }
+    }
+  ]
+}

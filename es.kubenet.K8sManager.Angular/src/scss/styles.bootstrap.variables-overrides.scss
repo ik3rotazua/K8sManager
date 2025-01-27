@@ -1,0 +1,35 @@
+$ax-bs-datatable-filter-is-used-color: darken(map-get($colors, "orange"), 20%);
+
+$theme-colors: map-merge(
+  $map1: $theme-colors,
+  $map2: (
+    "primary-lighter": #5bc2e7,
+  ),
+);
+
+$theme-list: map-merge(
+  $map1: $theme-list,
+  $map2: $theme-colors,
+);
+
+$colorsAll: map-merge(
+  $map1: $colors,
+  $map2: $theme-colors,
+);
+
+$card-cap-bg: map-get(
+  $map: $colorsAll,
+  $key: "primary",
+);
+$card-cap-color: color-contrast($card-cap-bg);
+
+$card-cap-footer-bg: map-get(
+  $map: $colorsAll,
+  $key: "light",
+);
+$card-cap-footer-color: color-contrast($card-cap-footer-bg);
+
+$headings-color: map-get($colorsAll, "black");
+
+$dropdown-divider-margin-y: $spacer * 0.25 !default;
+$dropdown-link-active-color: $primary;

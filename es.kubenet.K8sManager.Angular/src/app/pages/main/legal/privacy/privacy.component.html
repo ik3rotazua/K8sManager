@@ -1,0 +1,13 @@
+<div class="container" [ngSwitch]="translate.currentLang">
+    <div class="row section">
+        <div class="col-12 text-justify">
+            <ng-container *ngSwitchDefault
+                [ngTemplateOutlet]="tmplES"></ng-container>
+        </div>
+    </div>
+</div>
+
+<ng-template #tmplES>
+    <h1 class="font-weight-light uppercase">POLÍTICA DE PRIVACIDAD</h1>
+
+</ng-template>

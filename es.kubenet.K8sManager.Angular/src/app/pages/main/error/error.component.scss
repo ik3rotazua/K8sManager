@@ -1,0 +1,23 @@
+:host {
+    > div {
+        height: 100%;
+    }
+    .background {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        overflow: hidden;
+        .bg-image {
+            height: 100%;
+            width: 100%;
+            background-image: url('/assets/img/bg-not-found.jpg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            filter: blur(6px);
+            transform: scale(1.1);
+        }
+    }
+}

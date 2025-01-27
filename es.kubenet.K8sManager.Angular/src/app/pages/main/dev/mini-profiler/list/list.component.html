@@ -1,0 +1,198 @@
+<h2 class="section-title my-4">{{'Mini profiler'}}</h2>
+
+<div class="input-group mb-3">
+  <input
+    *ngIf="(dtRange ?? []).length > 0"
+    type="text"
+    placeholder="Daterangepicker"
+    class="form-control"
+    bsDaterangepicker
+    [(bsValue)]="dtRange"
+    (bsValueChange)="dt.refreshDataAsync()"
+    [minDate]="dtRangeLimit[0]"
+    [maxDate]="dtRangeLimit[1]"
+  >
+</div>
+
+<ax-bs-datatable
+  #dt
+  [id]="'dev-mini-profiler'"
+  [config]="{
+    settings: { keyMode: 0 }
+  }"
+  [columns]="dtColumns"
+  [isFilterShown]="false"
+  [launchOnStartup]="false"
+  [dataGetterFn]="dtGetterFn.bind(this)"
+  [paginate]="false"
+></ax-bs-datatable>
+
+<ax-bs-modal-confirmation-message
+  #modalProfileDetails
+  [modalSize]="'modal-xl'"
+  [btnConfirmShown]="false"
+  [btnLabelClose]="'GENERIC.BTN.CLOSE' | translate"
+>
+  <ng-container
+    *ngIf="selectedProfile"
+    slot="body"
+  >
+    <h4>Data:</h4>
+    <p>
+      <ng-container
+        [ngTemplateOutlet]="tmplTimingName"
+        [ngTemplateOutletContext]="{
+          label: 'PATH',
+          timing: selectedProfile.root
+        }"
+      ></ng-container>
+
+      <strong>USER:</strong> {{selectedProfile.user}}
+    </p>
+
+    <h4>Steps:</h4>
+    <ul class="timing-children">
+      <li
+        *ngFor="let child of selectedProfile.root.children ?? []"
+        class="timing-child"
+      >
+        <ng-container
+          [ngTemplateOutlet]="tmplTiming"
+          [ngTemplateOutletContext]="{
+            timing: child
+          }"
+        ></ng-container>
+      </li>
+    </ul>
+
+  </ng-container>
+</ax-bs-modal-confirmation-message>
+
+<ng-template
+  #tmplTiming
+  let-timing="timing"
+>
+  <ng-container
+    [ngTemplateOutlet]="tmplTimingName"
+    [ngTemplateOutletContext]="{
+      label: 'PATH',
+      timing: timing
+    }"
+  ></ng-container>
+
+  <ng-container *ngIf="timing.customTimings?.sql != null">
+    <strong>SQL:</strong>
+    <div *ngFor="let sqlTiming of timing.customTimings.sql; let index = index;"
+      [id]="'sql-timing-' + sqlTiming.id"
+      >
+      <ng-container [ngSwitch]="_dummySqlExcludedTypes.includes(sqlTiming.executeType)">
+        <ng-container *ngSwitchCase="true">
+          <div
+            class="small text-muted">
+            <strong>{{sqlTiming.executeType}}:</strong> {{sqlTiming.durationMilliseconds | number:'1.2-2':langCode}} ms
+            
+          </div>
+        </ng-container>
+        <ng-container
+          *ngSwitchDefault
+          [ngTemplateOutlet]="tmplTimingSql"
+          [ngTemplateOutletContext]="{
+            timing: sqlTiming,
+            prevId: sqlTiming['_prevId'],
+            nextId: sqlTiming['_nextId']
+          }"
+        ></ng-container>
+      </ng-container>
+
+    </div>
+
+  </ng-container>
+  <ng-container *ngIf="timing.children != null">
+    <strong>CHILDREN:</strong>
+    <ul class="timing-children">
+      <ng-container *ngFor="let child of timing.children; let last = last">
+        <li
+          *ngIf="child.durationMilliseconds > 0"
+          class="timing-child"
+        >
+          <ng-container
+            [ngTemplateOutlet]="tmplTiming"
+            [ngTemplateOutletContext]="{
+              timing: child
+            }"
+          ></ng-container>
+        </li>
+      </ng-container>
+    </ul>
+
+  </ng-container>
+</ng-template>
+
+<ng-template>
+  <div><strong>STEP:</strong> {{selectedProfile.root.name}}</div>
+</ng-template>
+
+<ng-template
+  #tmplTimingName
+  let-timing="timing"
+  let-label="label"
+>
+  <div>
+    <strong>{{label ?? 'STEP'}}:</strong>
+    {{timing.name}}
+    ({{timing.durationMilliseconds | number:'1.2-2':langCode}} ms)
+    <ng-container
+      *ngIf="(timing.sqlMs ?? 0) > 0">
+      (sql: {{timing.sqlMs | number:'1.2-2':langCode}} ms)
+    </ng-container>
+  </div>
+</ng-template>
+
+<ng-template
+  #tmplTimingSql
+  let-timing="timing"
+  let-prevId="prevId"
+  let-nextId="nextId"
+>
+  <div
+    class="alert text-prewrap m-0 sql-query"
+    [class]="{
+      'alert-danger': timing.errored === true,
+      'alert-success': timing.errored !== true
+    }"
+  >
+    <div class="sql-query-toolbar small text-muted">
+      <app-btn-copy-text
+        [content]="timing.commandString"
+        ></app-btn-copy-text>
+
+      <div class="btn-group ml-2">
+        <button
+          axAutoBlur
+          type="button"
+          class="btn btn-primary btn-xs"
+          [disabled]="!prevId"
+          (click)="goToSqlTimingById(prevId)"
+          >
+          <fa-icon
+            [icon]="_iconPrev"
+            [fixedWidth]="true"></fa-icon>
+        </button>
+        <button
+          axAutoBlur
+          type="button"
+          class="btn btn-primary btn-xs"
+          [disabled]="!nextId"
+          (click)="goToSqlTimingById(nextId)"
+          >
+          <fa-icon
+            [icon]="_iconNext"
+            [fixedWidth]="true"></fa-icon>
+        </button>
+      </div>
+
+      {{timing.durationMilliseconds | number:'1.2-2':langCode}} ms
+    </div>
+    <pre><code [textContent]="timing.commandString"></code></pre>
+  </div>
+</ng-template>

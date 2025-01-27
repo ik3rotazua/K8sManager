@@ -1,0 +1,133 @@
+{
+  "API": {
+    "ERROR": {
+      "AUTH": {
+        "PASS": {
+          "FAIL": "Credentials are not valid"
+        }
+      },
+      "STATUSCODE": {
+        "0": {
+          "BODY": "Please, check your connection",
+          "TITLE": "Could not consume the service"
+        },
+        "500": {
+          "BODY": "An exception form has been generated",
+          "TITLE": "Could not perform the action"
+        }
+      }
+    }
+  },
+  "APP_NAME": "K8sManager",
+  "COMPONENT": {
+    "DATATABLE": {
+      "ACTION": {
+        "GOTO": {
+          "DETAILS": "Details"
+        }
+      },
+      "LABEL": {
+        "NODATA": "No data"
+      }
+    }
+  },
+  "FORMAT": {
+    "MOMENT": {
+      "DATE": "FORMAT.MOMENT.DATE",
+      "TIME24": "FORMAT.MOMENT.TIME24"
+    }
+  },
+  "GENERIC": {
+    "BTN": {
+      "CLOSE": "Close",
+      "GO_HOME": "Home",
+      "GOTO": {
+        "LIST": "Go to list"
+      },
+      "LOGOUT": "Sign out",
+      "SAVE": "Save"
+    },
+    "LABEL": {
+      "LOADING": "Loading..."
+    }
+  },
+  "LANG": {
+    "_PICKER": {
+      "LABEL": "Change language"
+    },
+    "EN": "English",
+    "EN_SHORT": "EN",
+    "ES": "Castellano",
+    "ES_SHORT": "ES"
+  },
+  "MENU": {
+    "PAGE": {
+      "COMPANY": {
+        "MAIN": "Company"
+      },
+      "EMPLOYEE": {
+        "DETAILS": "Details",
+        "LIST": "List",
+        "MAIN": "Employee",
+        "NEW": "New"
+      },
+      "HOME": "Home"
+    }
+  },
+  "no": "no",
+  "PAGE": {
+    "DASHBOARD": {
+      "TITLE": "Home"
+    },
+    "EMPLOYEE": {
+      "DETAILS": {
+        "NAME": "Name",
+        "SURNAME1": "First surname",
+        "SURNAME2": "Second surname",
+        "TITLE": "Employee - Details"
+      },
+      "LIST": {
+        "NAME": "Name",
+        "SURNAME1": "First surname",
+        "SURNAME2": "Second surname",
+        "TITLE": "Employee - List"
+      }
+    },
+    "ERROR": {
+      "404": {
+        "BODY": "We could not find the page you were looking for.",
+        "TITLE": "404 - Page not found"
+      }
+    }
+  },
+  "PAGES": {
+    "AUTH": {
+      "LOGIN": {
+        "LABEL": {
+          "NOT_AVAILABLE": "Authentication is currently not available",
+          "PASSWORD": "Password",
+          "REMEMBERME": "Keep me signed in",
+          "USERNAME": "Username"
+        }
+      }
+    },
+    "MAIN": {
+      "MODAL": {
+        "LOGOUT": {
+          "BODY": "Are you sure you want to log out? Your current session will end, but you may log in back later.",
+          "HEADER": "You're about to log out"
+        }
+      }
+    }
+  },
+  "SERVICEWORKER": {
+    "MODAL": {
+      "BODY": "There's a new version available to this app. It will be automatically launched next time you access the app. However, we recommend you update it as soon as possible.",
+      "BTN": {
+        "CLOSE": "Leave it for later",
+        "CONFIRM": "Update now"
+      },
+      "HEADER": "An update is available"
+    }
+  }
+}

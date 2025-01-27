@@ -1,0 +1,13 @@
+﻿[*.cs]
+
+# CS1998: Async method lacks 'await' operators and will run synchronously
+dotnet_diagnostic.CS1998.severity = error
+
+# CS4014: Because this call is not awaited, execution of the current method continues before the call is completed
+dotnet_diagnostic.CS4014.severity = error
+
+# CS0109: Member does not hide an inherited member; new keyword is not required
+dotnet_diagnostic.CS0109.severity = error
+
+tab_width = 2
+indent_size = 2

@@ -1,0 +1,87 @@
+$button-floating-height: 40px;
+$button-floating-width: $button-floating-height;
+$button-floating-tooltip-maxwidth: 200px;
+
+:host {
+    display: block;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    
+    > div {
+        width: 100%;
+        height: 100%;
+    }
+
+    .floating-button-wrapper {
+        z-index: 401;
+        background-color: rgba(0,0,0,0);
+        position: absolute;
+        width: auto;
+        height: auto;
+
+        &[vertical="top"] {
+            top: 10px;
+        }
+        &[vertical="bottom"] {
+            bottom: 10px;
+        }
+        &[horizontal="start"] {
+            left: 10px;
+        }
+        &[horizontal="end"] {
+            right: 10px;
+        }
+
+        .floating-button-container {
+            margin-top: 10px;
+
+            .floating-button-tooltip,
+            .floating-button {
+                color: var(--light);
+            }
+            .floating-button,
+            .floating-button-tooltip-border,
+            .floating-button-tooltip-text {
+                background-color: var(--primary);
+                height: $button-floating-height;
+            }
+            .floating-button-tooltip {
+                float: left;
+                max-width: 0px;
+                overflow: hidden;
+                transition: max-width .3s;
+                margin-right: -#{$button-floating-width * 0.5};
+
+                .floating-button-tooltip-border {
+                    float: left;
+                    height: $button-floating-height;
+                    width: #{$button-floating-width};
+                    border-top-left-radius: 50%;
+                    border-bottom-left-radius: 50%;
+                    margin-right: -#{$button-floating-width * 0.5};
+                }
+                .floating-button-tooltip-text {
+                    width: #{$button-floating-tooltip-maxwidth - $button-floating-width};
+                    margin-left: #{$button-floating-width * 0.5};
+                    padding-right: #{$button-floating-width * 0.5};
+                }
+            }
+            .floating-button {
+                border-radius: 50%;
+                width: $button-floating-width;
+            }
+
+            &:hover {
+                .floating-button-tooltip {
+                    max-width: 200px;
+                }
+            }
+        }
+
+
+        ::ng-deep bs-tooltip {
+            min-width: 130px;
+        }
+    }
+}

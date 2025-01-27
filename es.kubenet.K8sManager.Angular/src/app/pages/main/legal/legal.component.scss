@@ -1,0 +1,14 @@
+:host {
+    ::ng-deep {
+        p {
+            margin-bottom: 1rem;
+        }
+        table {
+            thead {
+                td,th {
+                    white-space: nowrap;
+                }
+            }
+        }
+    }
+}

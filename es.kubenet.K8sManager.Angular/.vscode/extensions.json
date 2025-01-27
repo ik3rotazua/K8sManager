@@ -1,0 +1,11 @@
+{
+    "recommendations": [
+        "angular.ng-template",
+        "eamodio.gitlens",
+        "esbenp.prettier-vscode",
+        "gencer.html-slim-scss-css-class-completion",
+        "mrmlnc.vscode-scss",
+        "ms-vscode.vs-keybindings",
+        "dbaeumer.vscode-eslint"
+    ]
+}

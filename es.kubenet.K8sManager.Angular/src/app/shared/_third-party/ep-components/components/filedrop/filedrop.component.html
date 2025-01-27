@@ -1,0 +1,57 @@
+<div class="fullheight"
+    (dragover)="onDragOver($event)"
+    (dragenter)="onDragEnter($event)"
+    (dragleave)="onDragLeave($event)"
+    (drop)="onDrop($event)">
+  <input #input type="file"
+    [multiple]="inputMultiple"
+    hidden
+    (change)="onManualInputChange($event)" />
+
+  <div class="row" [ngClass]="fileBoxWrapperClass">
+    <div class="col-lg-2 col-4 fade-in" *ngFor="let f of files" [ngClass]="fileBoxClass">
+      <div class="file-wrapper">
+        <div class="file-box">
+          <div class="truncated">{{f.name}}</div>
+          <div class="truncated">{{f.sizeLabel}}</div>
+          <div class="truncated">{{f.status}}</div>
+          <div class="overflow-scroll status" [ngClass]="'status-'+f.status.toLowerCase()">{{f.statusLabel}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col text-center">
+      <div *ngIf="files && files.length > 0"
+        class="fade-in">
+        <button type="button" [ngClass]="btnUploadClass" (click)="input.click()">
+          {{labelChooseFile}}
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="overlay fade-in" *ngIf="!showOverlay && !files || files.length === 0">
+    <div class="overlay">
+      <div class="message-box fullicon">
+        <fa-icon [icon]="['fas', 'upload']" aria-hidden="true"></fa-icon>
+      </div>
+    </div>
+    <div class="message-box">
+      <button [ngClass]="btnUploadClass" type="button"
+        (click)="input.click()">{{labelChooseFile}}</button>
+      <ng-container *ngIf="canDragAndDrop">
+        <br>
+        {{labelOrDragHere}}
+      </ng-container>
+    </div>
+  </div>
+  <div class="overlay fade-in" *ngIf="showOverlay">
+    <div class="message-box" *ngIf="isDragging"><strong>{{labelReleaseToUpload}}</strong></div>
+    <div class="message-box" *ngIf="isUploading">
+      {{labelStatusUploading}}
+    <progressbar [max]="100" [value]="uploadPrctg" type="primary" [striped]="true" [animate]="true">
+        <i>{{uploadPrctg}} / 100</i>
+    </progressbar>
+    </div>
+  </div>
+</div>

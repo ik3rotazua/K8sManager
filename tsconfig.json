@@ -1,0 +1,3 @@
+{
+  "extends": "./es.kubenet.K8sManager.Angular/tsconfig.json"
+}

@@ -1,0 +1,53 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup Label="Globals">
+		<SccProjectName>SAK</SccProjectName>
+		<SccProvider>SAK</SccProvider>
+		<SccAuxPath>SAK</SccAuxPath>
+		<SccLocalPath>SAK</SccLocalPath>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+		<EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Nullable>enable</Nullable>
+		<NoWarn>$(NoWarn);1591</NoWarn>
+		<Deterministic>false</Deterministic>
+		<AssemblyVersion>1.0.0.*</AssemblyVersion>
+    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+    <Deterministic>false</Deterministic>
+		<OutputType>Exe</OutputType>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="es.efor.Logging.Serilog" Version="1.0.0" />
+		<PackageReference Include="es.efor.Utilities.General" Version="1.1.0" />
+		<PackageReference Include="es.efor.Utilities.Swagger" Version="1.0.0" />
+		<PackageReference Include="es.efor.Utilities.Web" Version="1.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.DataProtection.EntityFrameworkCore" Version="8.0.10" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.10" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.10">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+		<PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.3.8" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\es.kubenet.K8sManager.Auth\es.kubenet.K8sManager.Auth.csproj" />
+		<ProjectReference Include="..\es.kubenet.K8sManager.Business.Account\es.kubenet.K8sManager.Business.Accounts.csproj" />
+		<ProjectReference Include="..\es.kubenet.K8sManager.Business.Core\es.kubenet.K8sManager.Business.Core.csproj" />
+		<ProjectReference Include="..\es.kubenet.K8sManager.Database\es.kubenet.K8sManager.Database.csproj" />
+		<ProjectReference Include="..\es.kubenet.K8sManager.Infraestructure\es.kubenet.K8sManager.Infraestructure.csproj" />
+	</ItemGroup>
+</Project>

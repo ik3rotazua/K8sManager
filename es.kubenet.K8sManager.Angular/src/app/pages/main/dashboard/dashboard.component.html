@@ -1,0 +1,58 @@
+<app-header>
+  <ng-container>{{'PAGE.DASHBOARD.TITLE' | translate}}</ng-container>
+</app-header>
+
+<div class="row mt-4">
+  <div
+    *ngFor="let i of _menuItems"
+    class="col-auto"
+  >
+    <div class="card h-100 nav-card-item">
+      <div class="card-body px-0 pb-0">
+        <div class="avatar avatar-sm card-avatar card-avatar-top">
+          <div
+            *ngIf="i.icon"
+            class="avatar-title fs-lg bg-primary-soft text-primary rounded-circle"
+          >
+            <fa-icon
+              *ngIf="i.icon"
+              [fixedWidth]="true"
+              [icon]="i.icon"
+            ></fa-icon>
+          </div>
+        </div>
+        <h2 class="card-title text-center fs-3 px-2">
+          {{i.label | translate}}
+          <a
+            *ngIf="i.routerLinkCommands && i.routerLinkCommands.length > 0"
+            class="stretched-link"
+            [routerLink]="i.routerLinkCommands"
+          ></a>
+        </h2>
+        <div
+          *ngIf="i.children && i.children.length > 0"
+          class="list-group list-group-flush text-center"
+        >
+          <button
+            type="button"
+            *ngFor="let c of i.children; let index = index"
+            class="list-group-item list-group-item-action fs-5 px-2"
+          >
+            <fa-icon
+              *ngIf="c.iconPreffix && c.iconName"
+              [fixedWidth]="true"
+              [icon]="[c.iconPreffix, c.iconName]"
+            >
+            </fa-icon>
+            {{c.label | translate}}
+            <a
+              *ngIf="c.routerLinkCommands && c.routerLinkCommands.length > 0"
+              class="stretched-link"
+              [routerLink]="c.routerLinkCommands"
+            ></a>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

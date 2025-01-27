@@ -1,0 +1,147 @@
+@switch (_isLoadingProviders && !_hasProviderErrors) {
+@case (false){
+
+@if(!(_lAuthLabel && true) && oAuthProviders.length === 0) {
+<div class="text-center mt-3">
+  <h2>{{'PAGES.AUTH.LOGIN.LABEL.NOT_AVAILABLE' | translate}}</h2>
+</div>
+}
+
+@if (_lAuthLabel && true) {
+<form (ngSubmit)="onFormSubmit($event)">
+  <div class="form-group">
+    <ax-bs-form-input
+      #inpUsr
+      [id]="'username'"
+      [class]="{
+            'is-invalid': _errors[inpUsr.id]
+          }"
+      [cssClassLabel]="'form-label'"
+      [cssClassInput]="'form-control'"
+      [cssClassContainer]="''"
+      [icon]="null"
+      [label]="'PAGES.AUTH.LOGIN.LABEL.USERNAME' | translate"
+      [disabled]="_isLoading"
+      [(value)]="_userData.username"
+    ></ax-bs-form-input>
+    <ax-array-translator
+      class="invalid-feedback d-block"
+      [labels]="_errors[inpUsr.id]"
+    ></ax-array-translator>
+  </div>
+
+  <div class="form-group">
+    <ax-bs-form-input
+      #inpPwd
+      [id]="'password'"
+      [class]="{
+        'is-invalid': _errors[inpPwd.id]
+      }"
+      [cssClassLabel]="'form-label'"
+      [cssClassInput]="'form-control'"
+      [cssClassContainer]="''"
+      [type]="'password'"
+      [icon]="null"
+      [label]="'PAGES.AUTH.LOGIN.LABEL.PASSWORD' | translate"
+      [disabled]="_isLoading"
+      [(value)]="_userData.password"
+    ></ax-bs-form-input>
+    <ax-array-translator
+      class="invalid-feedback d-block"
+      [labels]="_errors[inpPwd.id]"
+    ></ax-array-translator>
+  </div>
+
+  <div class="form-group">
+    <ax-bs-form-checkbox
+      [id]="'remember-me'"
+      [type]="'switch'"
+      [label]="'PAGES.AUTH.LOGIN.LABEL.REMEMBERME' | translate"
+      [(checked)]="_userData.rememberMe"
+      [disabled]="_isLoading"
+    ></ax-bs-form-checkbox>
+  </div>
+
+  <button
+    type="submit"
+    class="btn btn-lg w-100 btn-primary mb-3"
+    [disabled]="_isLoading"
+  >
+    {{_lAuthLabel | translate}}
+  </button>
+</form>
+}
+
+@if (_languages.length > 1) {
+<hr>
+
+<div
+  dropdown
+  [dropup]="true"
+  class="dropdown d-flex align-items-center justify-content-center"
+>
+  <button
+    #btnDdLangs
+    [id]="'btn-dd-langs'"
+    dropdownToggle
+    type="button"
+    class="btn btn-sm btn-link"
+  >{{'LANG._PICKER.LABEL' | translate}}</button>
+
+  <ul
+    *dropdownMenu
+    id="dd-langs"
+    role="menu"
+    class="dropdown-menu dropdown-menu-end mt-2 shadow shadow-sm pt-0"
+    [attr.aria-labelledby]="btnDdLangs.id"
+  >
+    @for (lang of _languages; track lang;) {
+    <li
+      role="menuitem"
+      [class]="{
+        'dropdown-item': true,
+        'active': lang === _langCurrent
+      }"
+      (click)="setAppLang(lang)"
+    ><span>{{('LANG.' + lang) | uppercase | translate}}</span></li>
+    }
+  </ul>
+</div>
+}
+
+@if(oAuthProviders.length > 0){
+<hr>
+
+@for (provider of oAuthProviders; track provider;) {
+<button
+  type="button"
+  class="btn-oauth btn-oauth-ms w-100 mb-3"
+  [disabled]="_isLoading"
+>
+  @if(provider.imgSrc){
+  <img
+    class="logo-ms"
+    [src]="provider.imgSrc"
+  >
+  }
+  {{provider.label | translate}}
+  <a
+    class="stretched-link"
+    [href]="provider.url"
+  ></a>
+</button>
+}
+}
+}
+@default {
+<div class="text-center">
+  <h2>
+    <fa-icon
+      [icon]="_iconLoading"
+      [spin]="true"
+    ></fa-icon>
+    {{'GENERIC.LABEL.LOADING' | translate}}
+  </h2>
+</div>
+}
+}

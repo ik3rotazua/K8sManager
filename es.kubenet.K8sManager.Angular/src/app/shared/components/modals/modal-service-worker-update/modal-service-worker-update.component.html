@@ -1,0 +1,9 @@
+<ax-bs-modal-confirmation-message
+    [labelHeader]="'SERVICEWORKER.MODAL.HEADER' | translate"
+    [btnLabelConfirm]="'SERVICEWORKER.MODAL.BTN.CONFIRM' | translate"
+    [btnLabelClose]="'SERVICEWORKER.MODAL.BTN.CLOSE' | translate"
+    (clickConfirm)="clickConfirm.next()">
+    <ng-container slot="body">
+        {{'SERVICEWORKER.MODAL.BODY' | translate}}
+    </ng-container>
+</ax-bs-modal-confirmation-message>

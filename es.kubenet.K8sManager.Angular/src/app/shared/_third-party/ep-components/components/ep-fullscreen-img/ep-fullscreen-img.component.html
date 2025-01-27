@@ -1,0 +1,18 @@
+<!-- <div class="fullscreen-img-outer"> -->
+<div class="fullscreen-img-wrapper"
+    [ngClass]="{'shown': _isShown}">
+    {{_isShown}}
+    <div *ngIf="service._imgUrl" class="fullscreen-img-wrapper-zoom">
+        <img #img [src]="service._imgUrl">
+    </div>
+    <button type="button"
+        class="btn rounded btn-danger btn-close"
+        autoBlur
+        (click)="hide()">
+        <fa-icon [icon]="['fas', 'times']"></fa-icon>
+        {{btnCloseLabel}}
+</button>
+</div>
+
+
+<!-- </div> -->

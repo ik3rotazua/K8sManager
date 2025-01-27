@@ -1,0 +1,108 @@
+<div class="container-fluid">
+  <div>
+    <button
+      type="button"
+      class="navbar-toggler me-2"
+      (click)="toggle()"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a
+      class="navbar-brand text-center"
+      [routerLink]="['/']"
+    >
+      <img
+        class="navbar-brand-img"
+        [src]="!isMini
+          ? '/assets/img/logo/logo.svg'
+          : '/assets/img/logo/logo.svg'"
+        [alt]="'APP_NAME' | translate"
+      >
+    </a>
+  </div>
+
+  <!-- User (xs) -->
+  <div class="navbar-user d-md-none">
+    <ng-content select="[slot=navbar-user]"></ng-content>
+  </div>
+
+  <!-- Collapse -->
+  <div
+    class="collapse navbar-collapse"
+    [class]="{
+      'show': _isOpen
+    }"
+  >
+    <ng-content select="[slot=header]"></ng-content>
+
+    <ul class="navbar-nav">
+      <ng-container *ngFor="let item of menuItems">
+        <ng-container
+          [ngTemplateOutlet]="tmplMenuItem"
+          [ngTemplateOutletContext]="{
+            item: item
+          }"
+        ></ng-container>
+      </ng-container>
+    </ul>
+
+    <div class="mt-auto pt-3 pt-md-0"></div>
+    <div class="d-flex align-items-center justify-content-between">
+      <!-- <div > -->
+      <ng-content select="[slot=footer]"></ng-content>
+    </div>
+  </div>
+</div>
+
+<ng-template
+  #tmplMenuItem
+  let-item="item"
+>
+  <li class="nav-item">
+    <span
+      [class]="{
+        'has-collapse': (item.children ?? []).length > 0 && !isMini,
+        'is-expanded': item.isOpen,
+        'nav-link': (item.children ?? []).length > 0
+          || (item.routerLinkCommands ?? []).length > 0
+      }"
+      (click)="onMenuItemClick($event, item)"
+      [routerLink]="(item.routerLinkCommands ?? []).length > 0 ? item.routerLinkCommands : undefined"
+      [routerLinkActive]="'active'"
+      [routerLinkActiveOptions]="{exact: true}"
+    >
+      <fa-icon
+        *ngIf="item.icon"
+        [fixedWidth]="true"
+        [icon]="item.icon"
+      ></fa-icon>
+      <ng-container *ngIf="!isMini">
+        {{item.label | translate}}
+
+        <a
+          *ngIf="(item.routerLinkCommands ?? []).length > 0"
+          #navLink
+          class="stretched-link"
+          [routerLink]="item.routerLinkCommands"
+        ></a>
+      </ng-container>
+    </span>
+
+    <div
+      *ngIf="(item.children ?? []).length > 0"
+      class="collapse show"
+      [@collapseH]="!item.isOpen || isMini"
+    >
+      <ul class="nav nav-sm flex-column">
+        <ng-container *ngFor="let child of item.children">
+          <ng-container
+            [ngTemplateOutlet]="tmplMenuItem"
+            [ngTemplateOutletContext]="{
+              item: child
+            }"
+          ></ng-container>
+        </ng-container>
+      </ul>
+    </div>
+  </li>
+</ng-template>

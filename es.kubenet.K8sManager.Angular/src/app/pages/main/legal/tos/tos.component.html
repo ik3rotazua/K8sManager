@@ -1,0 +1,14 @@
+<div class="container" [ngSwitch]="translate.currentLang">
+    <div class="row section">
+        <div class="col-12 text-justify">
+            <ng-container *ngSwitchDefault
+                [ngTemplateOutlet]="tmplES"></ng-container>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #tmplES>
+    <h1>Aviso legal y Condiciones de uso legal</h1>
+
+</ng-template>

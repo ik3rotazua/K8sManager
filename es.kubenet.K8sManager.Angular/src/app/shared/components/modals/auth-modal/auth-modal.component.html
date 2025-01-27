@@ -1,0 +1,10 @@
+<ax-bs-modal-confirmation-message
+  #modal
+  [labelHeader]="'MODALS.AUTH.HEADER.LABEL' | translate"
+  [btnConfirmShown]="false"
+>
+  <ng-container slot="body">
+    <app-auth-form
+      #form></app-auth-form>
+  </ng-container>
+</ax-bs-modal-confirmation-message>

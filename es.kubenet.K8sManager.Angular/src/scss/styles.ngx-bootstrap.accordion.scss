@@ -1,0 +1,18 @@
+
+accordion-group{
+  .accordion-toggle{
+    .btn-link{
+      text-decoration: none;
+    }
+    .panel-open{
+      background-color: $dark;
+    }
+    .panel-open{
+      background-color: $white;
+    }
+  }
+  
+  .card-header {  
+    height: 40px;  
+  }
+}

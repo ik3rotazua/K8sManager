@@ -1,0 +1,309 @@
+<!-- #region Cards -->
+<h2>Cards</h2>
+<!-- #region Card (simple) -->
+<h3>Card (simple)</h3>
+<div class="row">
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header">
+        Card header
+      </div>
+      <div class="card-body">
+        Card body
+      </div>
+    </div>
+  </div>
+</div>
+<!-- #endregion -->
+
+<!-- #region Card (form) -->
+<h3>Card (form)</h3>
+<div class="row">
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header">
+        Form title
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <ax-bs-form-input
+              [id]="'inp-mock-1'"
+              [label]="'Input sencillo'"
+              [placeholder]="'Placeholder'"
+              [(value)]="mockupForm.inputValue"
+            ></ax-bs-form-input>
+          </div>
+          <div class="col-md-6">
+            <ax-bs-form-input
+              [id]="'inp-mock-2'"
+              [label]="'Sin icono'"
+              [placeholder]="'Placeholder'"
+              [icon]="null"
+              [(value)]="mockupForm.inputValue"
+            ></ax-bs-form-input>
+          </div>
+          <div class="col-12">
+            <ax-bs-form-input
+              [id]="'inp-mock-3'"
+              [label]="'Input de línea completa'"
+              [placeholder]="'Placeholder'"
+              [icon]="null"
+              [(value)]="mockupForm.inputValue"
+            ></ax-bs-form-input>
+          </div>
+          <div class="col-md-6">
+            <ax-bs-form-input
+              [id]="'inp-mock-4'"
+              [label]="'Input válido'"
+              [placeholder]="'Placeholder'"
+              [isValid]="true"
+              [icon]="null"
+              [(value)]="mockupForm.inputValue"
+            ></ax-bs-form-input>
+          </div>
+          <div class="col-md-6">
+            <ax-bs-form-input
+              [id]="'inp-mock-5'"
+              [label]="'Input no-válido'"
+              [placeholder]="'Placeholder'"
+              [isNotValid]="true"
+              [icon]="null"
+              [(value)]="mockupForm.inputValue"
+            ></ax-bs-form-input>
+          </div>
+          <div class="col-md-6">
+            <ax-bs-form-input
+              [id]="'inp-mock-6'"
+              [label]="'Input deshabilitado'"
+              [placeholder]="'Placeholder'"
+              [icon]="null"
+              [(value)]="mockupForm.inputValue"
+              [disabled]="true"
+            ></ax-bs-form-input>
+          </div>
+          <div class="col-md-6">
+            <ax-bs-form-input
+              [id]="'inp-mock-7'"
+              [label]="'Input read-only'"
+              [placeholder]="'Placeholder'"
+              [icon]="null"
+              [(value)]="mockupForm.inputValue"
+              [readOnly]="true"
+            ></ax-bs-form-input>
+          </div>
+          <div class="col-12">
+            <ax-bs-form-input
+              [id]="'inp-mock-8'"
+              [label]="'Input con texto de ayuda debajo'"
+              [placeholder]="'Placeholder'"
+              [icon]="null"
+              [(value)]="mockupForm.inputValue"
+            ></ax-bs-form-input>
+            <div class="form-text fs-6 text-body-secondary mt-2">
+              Cada <code>&lt;ax-bs-form-input&gt;</code> debe ir con su propio <code>[id]="xxx"</code>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header">
+        Tarjeta junto al formulario
+      </div>
+      <div class="card-body">
+        Tarjeta con tamaño diferente.
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4 d-flex">
+    <div class="card">
+      <div class="card-header">
+        Y otra más
+      </div>
+      <div class="card-body">
+        Para hacer que todas las tarjetas tengan el mismo tamaño, añade <code>d-flex</code>
+        a <strong>todas</strong> las columnas.
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        Tamaños responsive
+      </div>
+      <div class="card-body">
+        <p>Todas las líneas cuentan como 12 columnas.</p>
+        <p>Puedes adjuntar otros formularios, tarjetas, etc. en la misma línea
+          si en el div de la columna le especificas cuántas columnas ocupa
+          (por ejemplo, <code>col-4</code>). Para hacer que el tamaño de la
+          columna sea totalmente responsive y que el tamaño del elemento
+          dependa del de la pantalla, puedes usar modificadores:</p>
+        <div class="row g-3">
+          <div class="col-4 border">
+            <code>col-4</code>: Siempre 4 columnas.
+          </div>
+          <div class="col-sm-4 border">
+            <code>col-sm-4</code>: 4 columnas si es más grande que móvil vertical (547px)
+          </div>
+          <div class="col-md-4 border">
+            <code>col-md-4</code>: 4 columnas si es más grande que tablet (768px)
+          </div>
+          <div class="col-lg-4 border">
+            <code>col-lg-4</code>: 4 columnas si es más grande que portátil (992px)
+          </div>
+          <div class="col-xl-4 border">
+            <code>col-xl-4</code>: 4 columnas si es más grande que escritorio (1200px)
+          </div>
+          <div class="col-xxl-4 border">
+            <code>col-xxl-4</code>: 4 columnas si es más grande que escritorio grande (1400px)
+          </div>
+          <div>
+
+            <p>Prueba a redimensionar la pantalla del navegador para ver el efecto.</p>
+            <p>Puedes combinar diferentes clases de breakpoint. Por ejemplo, para decirle que un
+              elemento ocupe 2 en escritorio y superior, 4 en tablet, 6 en móvil apaisado y 12 en móvil vertical:</p>
+            <div class="row g-3">
+              <div class="col-12 col-sm-6 col-md-4 col-xl-2 border">
+                <code>&lt;div class="col-12 col-sm-6 col-md-4 col-xl-2"&gt;&lt;/div&gt;</code></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- #endregion -->
+<!-- #endregion -->
+
+<!-- #region Tabs -->
+<h2>Tabs</h2>
+<div class="row justify-content-center mb-4">
+  <div class="col-12">
+    <tabset>
+      <tab
+        heading="Programa"
+        id="tab1"
+      >Programa</tab>
+      <tab heading="Proyectos">Proyectos</tab>
+      <tab heading="Actividades">Actividades</tab>
+      <tab heading="Acciones">Acciones</tab>
+      <tab heading="Indicadores">Indicadores</tab>
+      <tab heading="Stakeholders">Stakeholders</tab>
+      <tab heading="Control financiero">Control financiero</tab>
+      <tab heading="Documentos">Documentos</tab>
+    </tabset>
+  </div>
+</div>
+<!-- #endregion -->
+
+<!-- #region Dropdowns-->
+<h2>Dropdowns</h2>
+<div class="row justify-content-center mb-4">
+  <div class="col-12">
+    <div
+      class="btn-group dropdown"
+      dropdown
+    >
+      <button
+        id="button-basic"
+        dropdownToggle
+        type="button"
+        class="btn btn-white dropdown-toggle"
+        aria-controls="dropdown-basic"
+      >
+        Button dropdown
+        <span class="caret"></span>
+      </button>
+      <ul
+        id="dropdown-basic"
+        *dropdownMenu
+        class="dropdown-menu"
+        role="menu"
+        aria-labelledby="button-basic"
+      >
+        <li role="menuitem"><a
+            class="dropdown-item"
+            href="#"
+          >Action</a></li>
+        <li role="menuitem"><a
+            class="dropdown-item"
+            href="#"
+          >Another action</a></li>
+        <li role="menuitem"><a
+            class="dropdown-item"
+            href="#"
+          >Something else here</a></li>
+        <li class="divider dropdown-divider"></li>
+        <li role="menuitem"><a
+            class="dropdown-item"
+            href="#"
+          >Separated link</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- #endregion-->
+
+<!-- #region Accordeon -->
+<h2>Accordion</h2>
+<div class="row justify-content-center mb-4">
+  <div class="col-12">
+    <div class="checkbox">
+      <label>
+        <input
+          type="checkbox"
+          [(ngModel)]="oneAtATime"
+        >
+        Open only one at a time
+      </label>
+    </div>
+
+    <accordion
+      [closeOthers]="oneAtATime"
+      [isAnimated]="true"
+    >
+      <accordion-group heading="Static Header">
+        <div>
+          <p>This content is straight in the template.</p>
+        </div>
+      </accordion-group>
+      <accordion-group heading="Another group">
+        <div>
+          <p>Some content</p>
+        </div>
+      </accordion-group>
+      <accordion-group heading="Another group">
+        <div>
+          <p>Some content</p>
+        </div>
+      </accordion-group>
+      <accordion-group heading="Another group">
+        <div>
+          <p>Some content</p>
+        </div>
+      </accordion-group>
+    </accordion>
+  </div>
+</div>
+
+<!-- endregion-->
+<!-- #region Datatable -->
+<h2>Datatables</h2>
+<div class="row form-group d-flex align-items-center">
+  <ax-bs-datatable
+    #dt
+    [id]="'inp-mock-9'"
+    class="col-12 col-lg-12"
+    [columns]="dtColumns"
+    [dataGetterFn]="dtGetterFn.bind(this)"
+  >
+  </ax-bs-datatable>
+</div>
+<!-- #endregion -->

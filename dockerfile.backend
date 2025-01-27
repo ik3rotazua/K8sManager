@@ -1,0 +1,73 @@
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS step-build
+RUN mkdir -p /src
+RUN mkdir -p /app
+WORKDIR /src
+# Si cambia el .sln es porque se han añadido archivos de solución, se han renombrado
+# o se han añadido / actualizado .csproj. No podemos diferenciarlo, así que
+# forzamos copia + restauración de .csproj.
+# Que se cambie el archivo de solución es probable, pero no mucho.
+COPY *.sln .
+# Si se añaden o actualizan .csproj, hay que restaurar sus dependencias.
+# Así que se hace inmediatamente después de hacer la copia.
+COPY ["./*/*.csproj", "./"]
+RUN for projectFile in $(ls *.csproj); \
+    do \
+    mkdir -p ${projectFile%.*}/ && mv $projectFile ${projectFile%.*}/; \
+    done
+
+# Llegados a este punto, restauramos las dependencias.
+RUN dotnet restore *.sln
+
+# Ahora podemos copiar los archivos de código y demás dependencias programadas
+# del proyecto. Estos cambios no fuerzan la restauración de las dependencias.
+COPY . .
+
+# Punto de entrada principal de ejecución del proyecto.
+WORKDIR /src/es.kubenet.K8sManager.MainGateway
+
+# Publicamos en modo release al directorio /app, para facilitar el despliegue
+# en una imagen con menor tamaño, dado que las fuentes no importan.
+# Eliminamos las fuentes para reducir aún más el tamaño de la imagen resultante.
+RUN dotnet publish -c release -o /app --no-restore \
+    && rm -rf /src
+
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
+# Dependencias para el sistema operativo.
+RUN apt-get update -y && apt-get install -y --no-install-recommends \
+    ca-certificates \
+    curl \
+    iputils-ping \
+    procps
+
+WORKDIR /app
+RUN mkdir -p ./_app-files/_crt && \
+    chgrp -R 0 ./_app-files && \
+    chmod -R g=u ./_app-files
+
+# Usuario del contenedor. Lo necesitamos para evitar que
+# el binario del servidor lance excepciones que hagan caer
+# el contenedor.
+ARG UID=1000
+ARG USER=apphis
+ARG GID=1001
+ARG GROUP=apphis
+
+RUN groupadd \
+    --gid ${GID} \
+    ${GROUP} \
+    && useradd \
+    --uid ${UID} \
+    --gid ${GROUP} \
+    --shell "/bin/sh" \
+    --comment "Usuario ejecutor de la aplicación" \
+    ${USER}
+
+COPY --from=step-build /app .
+# Cambiamos los permisos de la carpeta para que el dueño sea
+# la aplicación.
+RUN chown -R ${USER}:${GROUP} /app
+# Cambiamos ejecutor de la imagen de Docker, para evitar permisos
+# de root.
+USER ${USER}
+
+ENTRYPOINT [ "dotnet", "/app/es.kubenet.K8sManager.MainGateway.dll" ]

@@ -1,0 +1,59 @@
+<div class="page-toolbar page-toolbar-top">
+  <div class="btn-group">
+    <app-btn
+      [icon]="_faSave"
+      [label]="'GENERIC.BTN.SAVE' | translate"
+      [color]="'success'"
+      [clickFn]="onBtnSave.bind(this)"
+    ></app-btn>
+    <app-btn
+      [icon]="_faChevronLeft"
+      [label]="'GENERIC.BTN.GOTO.LIST' | translate"
+      [route]="{
+        routerLink: _routeBack,
+        relativeTo: this._aRoute,
+      }"
+    ></app-btn>
+  </div>
+</div>
+
+<form
+  class="container"
+  autocomplete="off"
+>
+  <div class="row">
+    <div class="col form-group"
+      [class]="{
+        'text-danger': _errors['name']
+      }">
+      <ax-bs-form-input
+        [id]="'tr-d-estado'"
+        [icon]="null"
+        [label]="'PAGE.EMPLOYEE.DETAILS.NAME' | translate"
+        [(value)]="item.name"
+      ></ax-bs-form-input>
+      <ax-array-translator
+        [labels]="_errors['name']"></ax-array-translator>
+    </div>
+    <div class="col form-group">
+      <ax-bs-form-input
+        [id]="'tr-d-estado'"
+        [icon]="null"
+        [label]="'PAGE.EMPLOYEE.DETAILS.SURNAME1' | translate"
+        [(value)]="item.surname1"
+      ></ax-bs-form-input>
+      <ax-array-translator
+        [labels]="_errors['surname1']"></ax-array-translator>
+    </div>
+    <div class="col form-group">
+      <ax-bs-form-input
+        [id]="'tr-d-estado'"
+        [icon]="null"
+        [label]="'PAGE.EMPLOYEE.DETAILS.SURNAME2' | translate"
+        [(value)]="item.surname2"
+      ></ax-bs-form-input>
+      <ax-array-translator
+        [labels]="_errors['surname2']"></ax-array-translator>
+    </div>
+  </div>
+</form>
