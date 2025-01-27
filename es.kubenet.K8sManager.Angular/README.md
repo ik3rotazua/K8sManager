@@ -1,6 +1,6 @@
 # K8s Manager App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.5.
+Este proyecto fue generado con [Angular CLI](https://github.com/angular/angular-cli) versión 17.0.5.
 
 ## Primera descarga
 1. Abrir la carpeta raíz de las fuentes del proyecto de Angular (la carpeta donde se encuentra este `README.md`) en una ventana de terminal o consola.
