@@ -15,7 +15,7 @@
     "start:insecure": "npm run check-all && npm run lint && ng serve --port 4280 --open --extra-webpack-config webpack.extra.js",
     "start:sw": "npm run check-all && npm run check-deps && http-server dist -S -C ./dev-certs/localhost.crt -K ./dev-certs/localhost.key -l -p 4200 -d false -c-1 --proxy https://localhost:4200?",
     "real-favicon": "real-favicon",
-    "favicon": "node ./node-scripts/favicon.js",
+    "favicon": "node ./favicon.js",
     "tscheck": "node node_modules/typescript/bin/tsc -p .",
     "build": "npm run build:dev",
     "build:dev": "npm run check-all && npm run lint && ng build --watch --extra-webpack-config webpack.extra.js",
