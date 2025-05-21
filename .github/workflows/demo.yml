@@ -30,8 +30,6 @@ jobs:
         uses: actions/checkout@v4
         id: J_CHEKOUT_REPO
 
-      - run: cd demo
-
       - run: ls
       
       - name: Setup Node.js
