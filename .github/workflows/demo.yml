@@ -35,12 +35,15 @@ jobs:
         with:
           node-version: "22.13.x"
           cache: "npm"
+          working-directory: demo
 
       - name: npm ci
         run: npm ci
+        working-directory: demo
 
       - name: npm run demo:pages
         run: npm run demo:pages
+        working-directory: demo
 
       - name: Upload demo artifact
         uses: actions/upload-artifact@v4
@@ -48,3 +51,4 @@ jobs:
           name: "demo"
           path: dist/demo
           if-no-files-found: error
+          working-directory: demo
