@@ -35,7 +35,7 @@ jobs:
         with:
           node-version: "22.13.x"
           cache: "npm"
-          working-directory: demo
+          key: demo/package-lock.json
 
       - name: npm ci
         run: npm ci
