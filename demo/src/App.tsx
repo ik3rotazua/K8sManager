@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   LayoutDashboard, 
   Box, 
@@ -78,7 +78,7 @@ const clusters = {
 };
 
 function App() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedClusters, setSelectedClusters] = useState(['prod-cluster']);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
@@ -86,6 +86,8 @@ function App() {
   const [terminalInput, setTerminalInput] = useState('');
   const [currentView, setCurrentView] = useState('dashboard');
   const [showAddClusterModal, setShowAddClusterModal] = useState(false);
+
+  const sidebarRef = useRef<HTMLDivElement>(null);
 
   // Auto-close sidebar after delay when mouse leaves
   useEffect(() => {
@@ -102,16 +104,16 @@ function App() {
       setIsSidebarOpen(true);
     };
 
-    const sidebar = document.getElementById('sidebar');
-    if (sidebar) {
-      sidebar.addEventListener('mouseleave', handleMouseLeave);
-      sidebar.addEventListener('mouseenter', handleMouseEnter);
+    const sidebarElement = sidebarRef.current;
+    if (sidebarElement) {
+      sidebarElement.addEventListener('mouseleave', handleMouseLeave);
+      sidebarElement.addEventListener('mouseenter', handleMouseEnter);
     }
 
     return () => {
-      if (sidebar) {
-        sidebar.removeEventListener('mouseleave', handleMouseLeave);
-        sidebar.removeEventListener('mouseenter', handleMouseEnter);
+      if (sidebarElement) {
+        sidebarElement.removeEventListener('mouseleave', handleMouseLeave);
+        sidebarElement.removeEventListener('mouseenter', handleMouseEnter);
       }
       clearTimeout(timeoutId);
     };
@@ -336,7 +338,10 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-50 flex">
       {/* Static Sidebar */}
-      <div id="sidebar" className={`fixed top-0 left-0 h-full ${isSidebarOpen ? 'w-64' : 'w-20'} bg-white border-r border-gray-200 transition-all duration-300 flex flex-col z-10`}>
+      <div 
+        ref={sidebarRef} 
+        className={`fixed top-0 left-0 h-full ${isSidebarOpen ? 'w-64' : 'w-20'} bg-white border-r border-gray-200 transition-all duration-300 flex flex-col z-10`}
+      >
         <div className="p-4 flex items-center justify-between border-b border-gray-200">
           <Menu size={20} className="text-gray-600" />
         </div>
