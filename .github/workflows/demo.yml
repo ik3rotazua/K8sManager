@@ -27,6 +27,8 @@ jobs:
         id: J_CHEKOUT_REPO
 
       - run: cd demo
+
+      - run: ls
       
       - name: Setup Node.js
         uses: actions/setup-node@v4
