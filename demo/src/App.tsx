@@ -447,7 +447,7 @@ function App() {
         ref={sidebarRef} 
         className={`fixed top-0 left-0 h-full ${isSidebarOpen ? 'w-64' : 'w-20'} bg-white border-r border-gray-200 transition-all duration-300 flex flex-col z-10`}
       >
-        <div className="p-4 flex items-center justify-between border-b border-gray-200">
+        <div className="h-16 px-4 flex items-center justify-between border-b border-gray-200">
           <Menu size={20} className="text-gray-600" />
         </div>
 
@@ -511,17 +511,17 @@ function App() {
       <div className={`flex-1 ${isSidebarOpen ? 'ml-64' : 'ml-20'} transition-all duration-300`}>
         {/* Static Header */}
         <header 
-          className="fixed top-0 right-0 bg-white border-b border-gray-200 z-10 transition-all duration-300" 
+          className="fixed top-0 right-0 bg-white border-b border-gray-200 z-10 transition-all duration-300 h-16 flex items-center"
           style={{ 
-            left: isSidebarOpen ? '16rem' : '5rem',  // Use rem units instead of pixels
+            left: isSidebarOpen ? '16rem' : '5rem',
             transitionProperty: 'left',
             transitionDuration: '300ms',
             transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)' 
           }}>
-          <div className="p-4">
+          <div className="w-full px-4">
             <div className="flex items-center justify-between">
               <h2 className="text-2xl font-semibold text-gray-800">
-                {currentView === 'roles' ? 'Cluster Roles Management' : 'Multi-Cluster Overview'}
+                {/* {currentView === 'roles' ? 'Cluster Roles Management' : 'Multi-Cluster Overview'} */}
               </h2>
               <div className="flex items-center space-x-4">
                 <button className="p-2 hover:bg-gray-100 rounded-lg relative transition-colors duration-200">
