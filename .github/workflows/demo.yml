@@ -38,8 +38,8 @@ jobs:
       - name: npm ci
         run: npm ci
 
-      - name: npm run demo:pages
-        run: npm run demo:pages
+      - name: npm run build:pages
+        run: npm run build:pages
 
       - run: ls
 
@@ -47,5 +47,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: "demo"
-          path: demo/dist/demo
+          path: demo/dist
           if-no-files-found: error
