@@ -21,6 +21,10 @@ jobs:
   build-demo:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: demo
+    
     steps:
       - name: Chekcout repository
         uses: actions/checkout@v4
