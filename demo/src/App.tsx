@@ -387,18 +387,18 @@ function App() {
           <NavItem icon={<Settings size={20} />} text="Settings" collapsed={!isSidebarOpen} onClick={() => console.log('Settings') } />
         </nav>
 
-        <div className={`border-t border-gray-200 p-4 ${!isSidebarOpen && 'hidden'}`}>
-          <div className="flex items-center space-x-3">
-            <img
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-              alt="Profile"
-              className="w-8 h-8 rounded-full"
-            />
-            <div className="flex-1">
-              <p className="text-sm font-medium text-gray-700">John Doe</p>
-              <p className="text-xs text-gray-500">Admin</p>
+        <div className="border-t border-gray-200 p-4 flex items-center">
+          <img
+            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+            alt="Profile"
+            className="w-8 h-8 rounded-full flex-shrink-0"
+          />
+          {isSidebarOpen && (
+            <div className="ml-3 overflow-hidden transition-all duration-300">
+              <p className="text-sm font-medium text-gray-700 truncate">John Doe</p>
+              <p className="text-xs text-gray-500 truncate">Admin</p>
             </div>
-          </div>
+          )}
         </div>
       </div>
 
