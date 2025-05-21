@@ -82,6 +82,7 @@ function App() {
   const [selectedClusters, setSelectedClusters] = useState(['prod-cluster']);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
+  const [isTerminalMinimized, setIsTerminalMinimized] = useState(false);
   const [terminalHistory, setTerminalHistory] = useState(['Welcome to K8s Terminal']);
   const [terminalInput, setTerminalInput] = useState('');
   const [currentView, setCurrentView] = useState('dashboard');
@@ -163,26 +164,54 @@ function App() {
             )}
 
             {isTerminalOpen && (
-              <div className="fixed bottom-6 right-6 w-[600px] bg-gray-900 rounded-lg shadow-2xl transform transition-all duration-300 ease-in-out">
-                <div className="flex items-center justify-between p-3 border-b border-gray-700 bg-gray-800 rounded-t-lg">
+              <div 
+                className="fixed bottom-6 right-6 w-[600px] bg-gray-900 rounded-lg shadow-2xl transform transition-all duration-300 ease-out"
+                style={{
+                  height: isTerminalMinimized ? '48px' : '360px', 
+                  // Remove the transform that's causing it to disappear
+                  overflow: 'hidden'
+                }}
+              >
+                <div className="flex items-center justify-between p-3 border-b border-gray-700 bg-gray-800 rounded-t-lg sticky top-0 z-10">
                   <h3 className="text-white font-mono flex items-center">
                     <Terminal size={16} className="mr-2" />
                     Terminal
                   </h3>
-                  <button 
-                    onClick={() => setIsTerminalOpen(false)}
-                    className="text-gray-400 hover:text-white transition-colors duration-200"
-                  >
-                    <X size={16} />
-                  </button>
+                  <div className="flex space-x-2">
+                    <button 
+                      onClick={() => setIsTerminalMinimized(!isTerminalMinimized)}
+                      className="text-gray-400 hover:text-white transition-all duration-300"
+                    >
+                      <div className={`transform transition-transform duration-300 ${isTerminalMinimized ? 'rotate-180' : 'rotate-0'}`}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                      </div>
+                    </button>
+                    <button 
+                      onClick={() => setIsTerminalOpen(false)}
+                      className="text-gray-400 hover:text-white transition-colors duration-200"
+                    >
+                      <X size={16} />
+                    </button>
+                  </div>
                 </div>
-                <div className="p-4 h-80 overflow-auto custom-scrollbar">
+                <div 
+                  className="p-4 overflow-auto custom-scrollbar transition-all duration-300"
+                  style={{ 
+                    maxHeight: isTerminalMinimized ? '0' : 'calc(100% - 48px)',
+                    opacity: isTerminalMinimized ? 0 : 1 
+                  }}
+                >
                   <div className="font-mono text-sm space-y-2">
                     {terminalHistory.map((line, i) => (
                       <div 
                         key={i} 
-                        className="text-green-400 opacity-0 animate-terminal-line"
-                        style={{ animationDelay: `${i * 100}ms` }}
+                        className="text-green-400"
+                        style={{ 
+                          opacity: isTerminalMinimized ? 0 : 1,
+                          transition: `opacity 300ms ${i * 50}ms ease-in-out` 
+                        }}
                       >
                         {line}
                       </div>
@@ -194,7 +223,8 @@ function App() {
                         value={terminalInput}
                         onChange={(e) => setTerminalInput(e.target.value)}
                         className="flex-1 bg-transparent text-green-400 outline-none caret-green-400"
-                        autoFocus
+                        autoFocus={!isTerminalMinimized}
+                        disabled={isTerminalMinimized}
                       />
                     </form>
                   </div>
