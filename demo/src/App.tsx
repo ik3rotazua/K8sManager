@@ -87,6 +87,10 @@ function App() {
   const [terminalInput, setTerminalInput] = useState('');
   const [currentView, setCurrentView] = useState('dashboard');
   const [showAddClusterModal, setShowAddClusterModal] = useState(false);
+  const [terminalPosition, setTerminalPosition] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const dragRef = useRef<{ startX: number; startY: number; initialPosition: { x: number; y: number } } | null>(null);
+
 
   const sidebarRef = useRef<HTMLDivElement>(null);
 
@@ -120,6 +124,25 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    if (isDragging) {
+      document.body.style.userSelect = 'none';
+      document.body.style.cursor = 'grabbing';
+      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mouseup', handleMouseUp);
+    } else {
+      document.body.style.userSelect = '';
+      document.body.style.cursor = '';
+    }
+    
+    return () => {
+      document.body.style.userSelect = '';
+      document.body.style.cursor = '';
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDragging]);
+
   const toggleClusterSelection = (clusterId: string) => {
     setSelectedClusters(prev => 
       prev.includes(clusterId)
@@ -134,6 +157,35 @@ function App() {
       setTerminalHistory(prev => [...prev, `$ ${terminalInput}`, 'Command executed (mock response)']);
       setTerminalInput('');
     }
+  };
+
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    // Only start drag from the header area
+    if ((e.target as HTMLElement).closest('.terminal-header')) {
+      setIsDragging(true);
+      dragRef.current = {
+        startX: e.clientX,
+        startY: e.clientY,
+        initialPosition: { ...terminalPosition }
+      };
+    }
+  };
+
+  const handleMouseMove = (e: MouseEvent) => {
+    if (isDragging && dragRef.current) {
+      const deltaX = e.clientX - dragRef.current.startX;
+      const deltaY = e.clientY - dragRef.current.startY;
+      
+      setTerminalPosition({
+        x: dragRef.current.initialPosition.x + deltaX,
+        y: dragRef.current.initialPosition.y + deltaY
+      });
+    }
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+    dragRef.current = null;
   };
 
   const renderMainContent = () => {
@@ -165,14 +217,19 @@ function App() {
 
             {isTerminalOpen && (
               <div 
-                className="fixed bottom-6 right-6 w-[600px] bg-gray-900 rounded-lg shadow-2xl transform transition-all duration-300 ease-out"
+                className="fixed bg-gray-900 rounded-lg shadow-2xl transform transition-all duration-300 ease-out"
                 style={{
-                  height: isTerminalMinimized ? '48px' : '360px', 
-                  // Remove the transform that's causing it to disappear
-                  overflow: 'hidden'
+                  height: isTerminalMinimized ? '48px' : '360px',
+                  width: '600px',
+                  bottom: 24 - terminalPosition.y,
+                  right: 24 - terminalPosition.x,
+                  overflow: 'hidden',
+                  cursor: isDragging ? 'grabbing' : 'auto',
+                  zIndex: 50
                 }}
+                onMouseDown={handleMouseDown}
               >
-                <div className="flex items-center justify-between p-3 border-b border-gray-700 bg-gray-800 rounded-t-lg sticky top-0 z-10">
+                <div className="flex items-center justify-between p-3 border-b border-gray-700 bg-gray-800 rounded-t-lg sticky top-0 z-10 terminal-header cursor-grab">
                   <h3 className="text-white font-mono flex items-center">
                     <Terminal size={16} className="mr-2" />
                     Terminal
