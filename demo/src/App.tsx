@@ -355,11 +355,11 @@ function App() {
                 id={id}
                 checked={selectedClusters.includes(id)}
                 onChange={() => toggleClusterSelection(id)}
-                className="mr-2"
+                className="mr-2 flex-shrink-0"
               />
-              <label htmlFor={id} className="flex items-center text-sm">
-                <Server size={16} className={`mr-2 ${cluster.status === 'Healthy' ? 'text-green-500' : 'text-yellow-500'}`} />
-                {cluster.name}
+              <label htmlFor={id} className="flex items-center text-sm w-full">
+                <Server size={16} className={`mr-2 flex-shrink-0 ${cluster.status === 'Healthy' ? 'text-green-500' : 'text-yellow-500'}`} />
+                <span className="truncate">{cluster.name}</span>
               </label>
             </div>
           ))}
@@ -486,12 +486,12 @@ function NavItem({ icon, text, active = false, collapsed = false, onClick }: {
         e.preventDefault();
         onClick?.();
       }}
-      className={`flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 transition-colors duration-200 ${
+      className={`flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 transition-colors duration-200 w-full ${
         active && 'bg-blue-50 text-blue-600'
       }`}
     >
-      <span className="mr-3">{icon}</span>
-      {!collapsed && <span>{text}</span>}
+      <span className="mr-3 flex-shrink-0">{icon}</span>
+      {!collapsed && <span className="truncate">{text}</span>}
     </a>
   );
 }
