@@ -1,0 +1,389 @@
+import React, { useState } from 'react';
+import { 
+  LayoutDashboard, 
+  Box, 
+  Cpu, 
+  MemoryStick as Memory, 
+  Network, 
+  AlertCircle, 
+  Settings, 
+  Menu, 
+  X, 
+  Server, 
+  Plus,
+  Terminal,
+  ChevronDown,
+  LogOut,
+  User,
+  Shield,
+  Bell,
+  Users,
+  Lock
+} from 'lucide-react';
+import ClusterRoles from './components/ClusterRoles';
+
+// Mock data for multiple clusters
+const clusters = {
+  'prod-cluster': {
+    name: 'Production Cluster',
+    region: 'us-west-1',
+    status: 'Healthy',
+    metrics: {
+      pods: 24,
+      nodes: 3,
+      cpu: 67,
+      memory: 72,
+      storage: 45,
+      alerts: 2,
+    },
+    pods: [
+      { name: 'frontend-pod-1', status: 'Running', cpu: '120m', memory: '256Mi', restarts: 0 },
+      { name: 'backend-pod-1', status: 'Running', cpu: '250m', memory: '512Mi', restarts: 1 },
+      { name: 'database-pod-1', status: 'Warning', cpu: '500m', memory: '1Gi', restarts: 2 },
+    ],
+  },
+  'staging-cluster': {
+    name: 'Staging Cluster',
+    region: 'us-east-1',
+    status: 'Warning',
+    metrics: {
+      pods: 12,
+      nodes: 2,
+      cpu: 45,
+      memory: 58,
+      storage: 30,
+      alerts: 1,
+    },
+    pods: [
+      { name: 'staging-frontend-1', status: 'Running', cpu: '100m', memory: '256Mi', restarts: 0 },
+      { name: 'staging-backend-1', status: 'Warning', cpu: '200m', memory: '512Mi', restarts: 1 },
+    ],
+  },
+  'dev-cluster': {
+    name: 'Development Cluster',
+    region: 'eu-west-1',
+    status: 'Healthy',
+    metrics: {
+      pods: 8,
+      nodes: 1,
+      cpu: 32,
+      memory: 41,
+      storage: 25,
+      alerts: 0,
+    },
+    pods: [
+      { name: 'dev-app-1', status: 'Running', cpu: '80m', memory: '128Mi', restarts: 0 },
+      { name: 'dev-app-2', status: 'Running', cpu: '90m', memory: '128Mi', restarts: 0 },
+    ],
+  },
+};
+
+function App() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [selectedClusters, setSelectedClusters] = useState(['prod-cluster']);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isTerminalOpen, setIsTerminalOpen] = useState(false);
+  const [terminalHistory, setTerminalHistory] = useState(['Welcome to K8s Terminal']);
+  const [terminalInput, setTerminalInput] = useState('');
+  const [currentView, setCurrentView] = useState('dashboard');
+
+  const toggleClusterSelection = (clusterId: string) => {
+    setSelectedClusters(prev => 
+      prev.includes(clusterId)
+        ? prev.filter(id => id !== clusterId)
+        : [...prev, clusterId]
+    );
+  };
+
+  const handleTerminalSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (terminalInput.trim()) {
+      setTerminalHistory(prev => [...prev, `$ ${terminalInput}`, 'Command executed (mock response)']);
+      setTerminalInput('');
+    }
+  };
+
+  const renderMainContent = () => {
+    switch(currentView) {
+      case 'roles':
+        return <ClusterRoles clusters={clusters} selectedClusters={selectedClusters} />;
+      case 'dashboard':
+      default:
+        return (
+          <>
+            {isTerminalOpen && (
+              <div className="mb-6 bg-gray-900 rounded-lg shadow-lg">
+                <div className="flex items-center justify-between p-2 border-b border-gray-700">
+                  <h3 className="text-white font-mono">Terminal</h3>
+                  <button 
+                    onClick={() => setIsTerminalOpen(false)}
+                    className="text-gray-400 hover:text-white"
+                  >
+                    <X size={16} />
+                  </button>
+                </div>
+                <div className="p-4 h-64 overflow-auto">
+                  <div className="font-mono text-sm">
+                    {terminalHistory.map((line, i) => (
+                      <div key={i} className="text-green-400">{line}</div>
+                    ))}
+                    <form onSubmit={handleTerminalSubmit} className="mt-2 flex">
+                      <span className="text-green-400">$&nbsp;</span>
+                      <input
+                        type="text"
+                        value={terminalInput}
+                        onChange={(e) => setTerminalInput(e.target.value)}
+                        className="flex-1 bg-transparent text-green-400 outline-none"
+                        autoFocus
+                      />
+                    </form>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {selectedClusters.map(clusterId => {
+              const cluster = clusters[clusterId];
+              return (
+                <div key={clusterId} className="mb-8">
+                  <div className="flex items-center justify-between mb-4">
+                    <div>
+                      <h3 className="text-xl font-semibold text-gray-800">{cluster.name}</h3>
+                      <p className="text-sm text-gray-500">Region: {cluster.region}</p>
+                    </div>
+                    <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                      cluster.status === 'Healthy' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+                    }`}>
+                      {cluster.status}
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                    <MetricCard
+                      title="Pods"
+                      value={cluster.metrics.pods}
+                      icon={<Box className="text-blue-500" />}
+                    />
+                    <MetricCard
+                      title="CPU Usage"
+                      value={`${cluster.metrics.cpu}%`}
+                      icon={<Cpu className="text-green-500" />}
+                    />
+                    <MetricCard
+                      title="Memory Usage"
+                      value={`${cluster.metrics.memory}%`}
+                      icon={<Memory className="text-purple-500" />}
+                    />
+                    <MetricCard
+                      title="Alerts"
+                      value={cluster.metrics.alerts}
+                      icon={<AlertCircle className="text-red-500" />}
+                    />
+                  </div>
+
+                  <div className="bg-white rounded-lg shadow">
+                    <div className="p-4 border-b border-gray-200">
+                      <h3 className="text-lg font-semibold text-gray-800">Running Pods</h3>
+                    </div>
+                    <div className="overflow-x-auto">
+                      <table className="w-full">
+                        <thead className="bg-gray-50">
+                          <tr>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">CPU</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Memory</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Restarts</th>
+                          </tr>
+                        </thead>
+                        <tbody className="bg-white divide-y divide-gray-200">
+                          {cluster.pods.map((pod) => (
+                            <tr key={pod.name}>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{pod.name}</td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm">
+                                <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                                  pod.status === 'Running' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+                                }`}>
+                                  {pod.status}
+                                </span>
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{pod.cpu}</td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{pod.memory}</td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{pod.restarts}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </>
+        );
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50 flex">
+      <div className={`${isSidebarOpen ? 'w-64' : 'w-20'} bg-white border-r border-gray-200 transition-all duration-300 flex flex-col`}>
+        <div className="p-4 flex items-center justify-between border-b border-gray-200">
+          <h1 className={`font-bold text-xl text-blue-600 ${!isSidebarOpen && 'hidden'}`}>K8s Manager</h1>
+          <button
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            className="p-2 rounded-lg hover:bg-gray-100"
+          >
+            {isSidebarOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
+
+        <div className={`p-4 border-b border-gray-200 ${!isSidebarOpen && 'hidden'}`}>
+          <h2 className="text-sm font-semibold text-gray-600 mb-2">Clusters</h2>
+          {Object.entries(clusters).map(([id, cluster]) => (
+            <div key={id} className="flex items-center mb-2">
+              <input
+                type="checkbox"
+                id={id}
+                checked={selectedClusters.includes(id)}
+                onChange={() => toggleClusterSelection(id)}
+                className="mr-2"
+              />
+              <label htmlFor={id} className="flex items-center text-sm">
+                <Server size={16} className={`mr-2 ${cluster.status === 'Healthy' ? 'text-green-500' : 'text-yellow-500'}`} />
+                {cluster.name}
+              </label>
+            </div>
+          ))}
+          <button className="mt-2 w-full flex items-center justify-center px-3 py-2 text-sm text-blue-600 hover:bg-blue-50 rounded-lg">
+            <Plus size={16} className="mr-1" />
+            Add Cluster
+          </button>
+        </div>
+
+        <nav className="mt-4 flex-1">
+          <NavItem 
+            icon={<LayoutDashboard size={20} />} 
+            text="Dashboard" 
+            active={currentView === 'dashboard'} 
+            collapsed={!isSidebarOpen}
+            onClick={() => setCurrentView('dashboard')}
+          />
+          <NavItem 
+            icon={<Users size={20} />} 
+            text="Roles & Access" 
+            active={currentView === 'roles'} 
+            collapsed={!isSidebarOpen}
+            onClick={() => setCurrentView('roles')}
+          />
+          <NavItem icon={<Box size={20} />} text="Workloads" collapsed={!isSidebarOpen} />
+          <NavItem icon={<Network size={20} />} text="Services" collapsed={!isSidebarOpen} />
+          <NavItem icon={<AlertCircle size={20} />} text="Alerts" collapsed={!isSidebarOpen} />
+          <NavItem icon={<Shield size={20} />} text="Security" collapsed={!isSidebarOpen} />
+          <NavItem icon={<Settings size={20} />} text="Settings" collapsed={!isSidebarOpen} />
+        </nav>
+
+        <div className={`border-t border-gray-200 p-4 ${!isSidebarOpen && 'hidden'}`}>
+          <div className="flex items-center space-x-3">
+            <img
+              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+              alt="Profile"
+              className="w-8 h-8 rounded-full"
+            />
+            <div className="flex-1">
+              <p className="text-sm font-medium text-gray-700">John Doe</p>
+              <p className="text-xs text-gray-500">Admin</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex-1 overflow-auto">
+        <header className="bg-white border-b border-gray-200 p-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-semibold text-gray-800">
+              {currentView === 'roles' ? 'Cluster Roles Management' : 'Multi-Cluster Overview'}
+            </h2>
+            <div className="flex items-center space-x-4">
+              <button className="p-2 hover:bg-gray-100 rounded-lg relative">
+                <Bell size={20} />
+                <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
+              </button>
+              
+              <button 
+                onClick={() => setIsTerminalOpen(!isTerminalOpen)}
+                className={`p-2 hover:bg-gray-100 rounded-lg ${isTerminalOpen ? 'bg-gray-100' : ''}`}
+              >
+                <Terminal size={20} />
+              </button>
+
+              <div className="relative">
+                <button 
+                  onClick={() => setIsProfileOpen(!isProfileOpen)}
+                  className="flex items-center space-x-3 p-2 hover:bg-gray-100 rounded-lg"
+                >
+                  <img
+                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                    alt="Profile"
+                    className="w-8 h-8 rounded-full"
+                  />
+                  <ChevronDown size={16} />
+                </button>
+
+                {isProfileOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 z-10">
+                    <a href="#" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                      <User size={16} className="mr-3" /> Profile
+                    </a>
+                    <a href="#" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                      <Settings size={16} className="mr-3" /> Settings
+                    </a>
+                    <hr className="my-1" />
+                    <a href="#" className="flex items-center px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
+                      <LogOut size={16} className="mr-3" /> Logout
+                    </a>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <main className="p-6">
+          {renderMainContent()}
+        </main>
+      </div>
+    </div>
+  );
+}
+
+function NavItem({ icon, text, active = false, collapsed = false, onClick }) {
+  return (
+    <a
+      href="#"
+      onClick={(e) => {
+        e.preventDefault();
+        onClick?.();
+      }}
+      className={`flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 ${
+        active && 'bg-blue-50 text-blue-600'
+      }`}
+    >
+      <span className="mr-3">{icon}</span>
+      {!collapsed && <span>{text}</span>}
+    </a>
+  );
+}
+
+function MetricCard({ title, value, icon }) {
+  return (
+    <div className="bg-white rounded-lg shadow p-6">
+      <div className="flex items-center justify-between mb-4">
+        <h4 className="text-lg font-medium text-gray-600">{title}</h4>
+        {icon}
+      </div>
+      <p className="text-3xl font-semibold text-gray-900">{value}</p>
+    </div>
+  );
+}
+
+export default App;

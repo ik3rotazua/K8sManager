@@ -22,6 +22,7 @@
     <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
     <Deterministic>false</Deterministic>
 		<OutputType>Exe</OutputType>
+		<UserSecretsId>cd57af16-d32e-42ac-97d5-b0380a2c564f</UserSecretsId>
 	</PropertyGroup>
 
 	<ItemGroup>
