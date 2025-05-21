@@ -4,6 +4,10 @@ permissions:
   contents: read
   id-token: write
 
+concurrency:
+  group: "k8s-manager-demo"
+  cancel-in-progress: true
+
 on:
   workflow_dispatch: {}
   push:
