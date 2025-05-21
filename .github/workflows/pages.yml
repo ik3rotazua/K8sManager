@@ -49,7 +49,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           name: k8s-manager-pages
-          path: demo/browser
+          path: demo
 
       - name: Deploy to GitHub Pages
         id: deployment
