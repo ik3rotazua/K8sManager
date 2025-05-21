@@ -20,6 +20,10 @@ on:
 jobs:
   build-demo:
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: demo
     
     steps:
       - name: Chekcout repository
@@ -35,7 +39,6 @@ jobs:
         with:
           node-version: "22.13.x"
           cache: "npm"
-          key: demo/package-lock.json
 
       - name: npm ci
         run: npm ci
