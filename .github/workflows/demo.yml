@@ -29,8 +29,6 @@ jobs:
       - name: Chekcout repository
         uses: actions/checkout@v4
         id: J_CHEKOUT_REPO
-
-      - run: ls
       
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -43,9 +41,11 @@ jobs:
       - name: npm run demo:pages
         run: npm run demo:pages
 
+      - run: ls
+
       - name: Upload demo artifact
         uses: actions/upload-artifact@v4
         with:
           name: "demo"
-          path: dist/demo
+          path: demo/dist/demo
           if-no-files-found: error
