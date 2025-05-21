@@ -366,6 +366,25 @@ function App() {
               );
             })}
 
+            {selectedClusters.length > 0 && selectedClusters.length < Object.keys(clusters).length && (
+              <div className="flex flex-col items-center justify-center min-h-[30vh] bg-white rounded-lg shadow-lg p-8 mb-8">
+                <div className="bg-blue-50 rounded-full p-6 mb-6">
+                  <Server size={48} className="text-blue-500" />
+                </div>
+                <h2 className="text-2xl font-semibold text-gray-800 mb-3">Add More Clusters</h2>
+                <p className="text-gray-600 text-center mb-6 max-w-md">
+                  You can connect more Kubernetes clusters to manage and monitor them all in one place.
+                </p>
+                <button
+                  onClick={() => setShowAddClusterModal(true)}
+                  className="bg-blue-600 text-white px-6 py-3 rounded-lg flex items-center space-x-2 hover:bg-blue-700 transform hover:scale-105 transition-all duration-300"
+                >
+                  <Plus size={20} />
+                  <span>Add Cluster</span>
+                </button>
+              </div>
+            )}
+
             {/* Add Cluster Modal */}
             {showAddClusterModal && (
               <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">

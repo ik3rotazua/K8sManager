@@ -1,3 +1,4 @@
+import ReactDOM from 'react-dom';
 import { useState } from 'react';
 import { Shield, Plus, Search, X } from 'lucide-react';
 
@@ -142,16 +143,19 @@ export default function ClusterRoles() {
       </div>
 
       {/* Add User Modal */}
-      {showAddUser && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white rounded-lg p-6 w-full max-w-md">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-semibold">Add New User</h3>
-              <button onClick={() => setShowAddUser(false)}>
+      {showAddUser &&
+      ReactDOM.createPortal(
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[100]">
+          <div className="bg-white rounded-lg p-8 w-full max-w-md transform transition-all duration-300 ease-out shadow-2xl">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-xl font-semibold text-gray-800">Add New User</h3>
+              <button
+                onClick={() => setShowAddUser(false)}
+                className="text-gray-500 hover:text-gray-700 transition-colors duration-200"
+              >
                 <X size={20} />
               </button>
             </div>
-            
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700">Name</label>
@@ -162,7 +166,6 @@ export default function ClusterRoles() {
                   className="mt-1 block w-full border rounded-md px-3 py-2"
                 />
               </div>
-              
               <div>
                 <label className="block text-sm font-medium text-gray-700">Email</label>
                 <input
@@ -172,7 +175,6 @@ export default function ClusterRoles() {
                   className="mt-1 block w-full border rounded-md px-3 py-2"
                 />
               </div>
-              
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Roles</label>
                 <div className="space-y-2">
@@ -194,7 +196,6 @@ export default function ClusterRoles() {
                   ))}
                 </div>
               </div>
-              
               <div className="flex justify-end space-x-3 mt-6">
                 <button
                   onClick={() => setShowAddUser(false)}
@@ -211,8 +212,10 @@ export default function ClusterRoles() {
               </div>
             </div>
           </div>
-        </div>
-      )}
+        </div>,
+        document.body
+      )
+    }
     </div>
   );
 }
