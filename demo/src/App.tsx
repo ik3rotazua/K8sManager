@@ -160,7 +160,6 @@ function App() {
   };
 
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-    // Only start drag from the header area
     if ((e.target as HTMLElement).closest('.terminal-header')) {
       setIsDragging(true);
       dragRef.current = {
@@ -175,7 +174,6 @@ function App() {
     if (isDragging && dragRef.current) {
       const deltaX = e.clientX - dragRef.current.startX;
       const deltaY = e.clientY - dragRef.current.startY;
-      
       setTerminalPosition({
         x: dragRef.current.initialPosition.x + deltaX,
         y: dragRef.current.initialPosition.y + deltaY
@@ -225,7 +223,8 @@ function App() {
                   right: 24 - terminalPosition.x,
                   overflow: 'hidden',
                   cursor: isDragging ? 'grabbing' : 'auto',
-                  zIndex: 50
+                  zIndex: 50,
+                  transition: isDragging ? 'none' : 'bottom 0.3s cubic-bezier(0.22, 1, 0.36, 1), right 0.3s cubic-bezier(0.22, 1, 0.36, 1)'
                 }}
                 onMouseDown={handleMouseDown}
               >
