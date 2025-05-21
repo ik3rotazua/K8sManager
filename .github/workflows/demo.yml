@@ -1,0 +1,42 @@
+name: "CI/CD Demo"
+
+permissions:
+  contents: read
+  id-token: write
+
+on:
+  workflow_dispatch: {}
+  push:
+    branches:
+      - master
+      - main
+    paths:
+      - "demo/**"
+
+jobs:
+  build-demo:
+    runs-on: arc-runner-set
+
+    steps:
+      - name: Chekcout repository
+        uses: actions/checkout@v4
+        id: J_CHEKOUT_REPO
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.13.x"
+          cache: "npm"
+
+      - name: npm ci
+        run: npm ci
+
+      - name: npm run demo:pages
+        run: npm run demo:pages
+
+      - name: Upload demo artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: "demo"
+          path: dist/demo
+          if-no-files-found: error
