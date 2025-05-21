@@ -15,6 +15,7 @@ on:
     workflows: ["CI/CD Demo"]
     types:
       - completed
+      - success
 
 jobs:
   publish-page:
