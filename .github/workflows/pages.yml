@@ -32,13 +32,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "22.13.x"
-          cache: "npm"
 
       - name: Download artifact Demo
         uses: dawidd6/action-download-artifact@v6
         with:
           github_token: ${{secrets.GITHUB_TOKEN}}
-          workflow: demo.yaml
+          workflow: demo.yml
           name: "demo"
           path: demo
 
