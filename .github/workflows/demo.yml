@@ -1,0 +1,51 @@
+name: "CI/CD Demo"
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: "k8s-manager-demo"
+  cancel-in-progress: true
+
+on:
+  workflow_dispatch: {}
+  push:
+    branches:
+      - master
+      - main
+    paths:
+      - "demo/**"
+
+jobs:
+  build-demo:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: demo
+    
+    steps:
+      - name: Chekcout repository
+        uses: actions/checkout@v4
+        id: J_CHEKOUT_REPO
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.13.x"
+
+      - name: npm ci
+        run: npm ci
+
+      - name: npm run build:pages
+        run: npm run build:pages
+
+      - run: ls
+
+      - name: Upload demo artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: "demo"
+          path: demo/dist
+          if-no-files-found: error

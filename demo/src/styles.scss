@@ -1,53 +1,11 @@
-@import "../../../../scss/styles.bootstrap.basic.scss";
-
-:host {
-  .background {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    overflow: hidden;
-    .bg-image {
-      height: 100%;
-      width: 100%;
-    }
-  }
-  height: 100vh;
-
-  .btn-oauth {
-    &.btn-oauth-ms {
-      $btn-oauth-msg-bg: #fff;
-      $btn-oauth-msg-color: #5e5e5e;
-
-      position: relative;
-
-      height: 41px;
-      vertical-align: middle;
-      padding-left: 12px;
-      padding-right: 12px;
-
-      border: solid 1px #8c8c8c;
-
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      font-size: 15px;
-      font-weight: 600;
-      background-color: $btn-oauth-msg-bg;
-      color: $btn-oauth-msg-color;
-
-      > .logo-ms {
-        margin-right: 12px;
-      }
-    }
-  }
-
-  @keyframes move {
+/* You can add global styles to this file, and also import other style files */
+@keyframes move {
     100% {
         transform: translate3d(0, 0, 1px) rotate(360deg);
     }
-  }
-  
-  .background {
+}
+
+.login-background {
     position: absolute;
     top: 0;
     left: 0;
@@ -55,9 +13,9 @@
     height: 100%;
     background: #3970e4;
     overflow: hidden;
-  }
-  
-  .background span {
+}
+
+.login-background span {
     width: 15vmin;
     height: 15vmin;
     border-radius: 15vmin;
@@ -67,10 +25,9 @@
     animation-duration: 45;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
-  }
-  
-  
-  .background span:nth-child(0) {
+}
+
+.login-background span:nth-child(0) {
     color: #0f3074;
     top: 9%;
     left: 31%;
@@ -78,8 +35,8 @@
     animation-delay: -13s;
     transform-origin: 3vw 20vh;
     box-shadow: 30vmin 0 4.245901118869932vmin currentColor;
-  }
-  .background span:nth-child(1) {
+}
+.login-background span:nth-child(1) {
     color: #123786;
     top: 17%;
     left: 2%;
@@ -87,8 +44,8 @@
     animation-delay: -39s;
     transform-origin: 5vw -2vh;
     box-shadow: -30vmin 0 4.508289353665352vmin currentColor;
-  }
-  .background span:nth-child(2) {
+}
+.login-background span:nth-child(2) {
     color: #9db8e9;
     top: 91%;
     left: 73%;
@@ -96,8 +53,8 @@
     animation-delay: -1s;
     transform-origin: -12vw 24vh;
     box-shadow: -30vmin 0 4.585765169021653vmin currentColor;
-  }
-  .background span:nth-child(3) {
+}
+.login-background span:nth-child(3) {
     color: #9db8e9;
     top: 29%;
     left: 37%;
@@ -105,8 +62,8 @@
     animation-delay: -39s;
     transform-origin: -8vw 14vh;
     box-shadow: -30vmin 0 4.661740480981246vmin currentColor;
-  }
-  .background span:nth-child(4) {
+}
+.login-background span:nth-child(4) {
     color: #0f3074;
     top: 47%;
     left: 88%;
@@ -114,8 +71,8 @@
     animation-delay: -19s;
     transform-origin: -16vw 16vh;
     box-shadow: 30vmin 0 3.766361817866522vmin currentColor;
-  }
-  .background span:nth-child(5) {
+}
+.login-background span:nth-child(5) {
     color: #9db8e9;
     top: 80%;
     left: 53%;
@@ -123,8 +80,8 @@
     animation-delay: -11s;
     transform-origin: -23vw 0vh;
     box-shadow: -30vmin 0 4.068903942536133vmin currentColor;
-  }
-  .background span:nth-child(6) {
+}
+.login-background span:nth-child(6) {
     color: #a0b4d4;
     top: 46%;
     left: 74%;
@@ -132,8 +89,8 @@
     animation-delay: -48s;
     transform-origin: 22vw -18vh;
     box-shadow: -30vmin 0 4.191662637642221vmin currentColor;
-  }
-  .background span:nth-child(7) {
+}
+.login-background span:nth-child(7) {
     color: #9db8e9;
     top: 76%;
     left: 60%;
@@ -141,8 +98,8 @@
     animation-delay: -26s;
     transform-origin: 14vw 14vh;
     box-shadow: -30vmin 0 4.285553879347386vmin currentColor;
-  }
-  .background span:nth-child(8) {
+}
+.login-background span:nth-child(8) {
     color: #a0b4d4;
     top: 63%;
     left: 95%;
@@ -150,8 +107,8 @@
     animation-delay: -5s;
     transform-origin: -16vw 19vh;
     box-shadow: 30vmin 0 4.081356241220626vmin currentColor;
-  }
-  .background span:nth-child(9) {
+}
+.login-background span:nth-child(9) {
     color: #a0b4d4;
     top: 75%;
     left: 73%;
@@ -159,8 +116,8 @@
     animation-delay: -40s;
     transform-origin: 13vw 7vh;
     box-shadow: 30vmin 0 4.10254865200317vmin currentColor;
-  }
-  .background span:nth-child(10) {
+}
+.login-background span:nth-child(10) {
     color: #a0b4d4;
     top: 71%;
     left: 69%;
@@ -168,8 +125,8 @@
     animation-delay: -47s;
     transform-origin: 3vw 7vh;
     box-shadow: -30vmin 0 3.9017961275100945vmin currentColor;
-  }
-  .background span:nth-child(11) {
+}
+.login-background span:nth-child(11) {
     color: #9db8e9;
     top: 41%;
     left: 19%;
@@ -177,8 +134,8 @@
     animation-delay: -2s;
     transform-origin: 7vw 19vh;
     box-shadow: -30vmin 0 3.8089869560369847vmin currentColor;
-  }
-  .background span:nth-child(12) {
+}
+.login-background span:nth-child(12) {
     color: #0f3074;
     top: 71%;
     left: 1%;
@@ -186,8 +143,8 @@
     animation-delay: -36s;
     transform-origin: -1vw 19vh;
     box-shadow: -30vmin 0 4.353473930136548vmin currentColor;
-  }
-  .background span:nth-child(13) {
+}
+.login-background span:nth-child(13) {
     color: #0f3074;
     top: 20%;
     left: 69%;
@@ -195,8 +152,8 @@
     animation-delay: -47s;
     transform-origin: -12vw -10vh;
     box-shadow: 30vmin 0 4.459131451271443vmin currentColor;
-  }
-  .background span:nth-child(14) {
+}
+.login-background span:nth-child(14) {
     color: #0f3074;
     top: 2%;
     left: 54%;
@@ -204,8 +161,8 @@
     animation-delay: -3s;
     transform-origin: 13vw 9vh;
     box-shadow: 30vmin 0 4.249289920355347vmin currentColor;
-  }
-  .background span:nth-child(15) {
+}
+.login-background span:nth-child(15) {
     color: #0f3074;
     top: 7%;
     left: 19%;
@@ -213,8 +170,8 @@
     animation-delay: -30s;
     transform-origin: 10vw 7vh;
     box-shadow: -30vmin 0 3.796096710250762vmin currentColor;
-  }
-  .background span:nth-child(16) {
+}
+.login-background span:nth-child(16) {
     color: #9db8e9;
     top: 47%;
     left: 52%;
@@ -222,8 +179,8 @@
     animation-delay: -23s;
     transform-origin: 12vw -9vh;
     box-shadow: 30vmin 0 4.525758460651874vmin currentColor;
-  }
-  .background span:nth-child(17) {
+}
+.login-background span:nth-child(17) {
     color: #0f3074;
     top: 58%;
     left: 52%;
@@ -231,8 +188,8 @@
     animation-delay: -15s;
     transform-origin: 3vw -8vh;
     box-shadow: -30vmin 0 4.599255443180509vmin currentColor;
-  }
-  .background span:nth-child(18) {
+}
+.login-background span:nth-child(18) {
     color: #9db8e9;
     top: 48%;
     left: 73%;
@@ -240,8 +197,8 @@
     animation-delay: -20s;
     transform-origin: -16vw 3vh;
     box-shadow: -30vmin 0 4.615956841226vmin currentColor;
-  }
-  .background span:nth-child(19) {
+}
+.login-background span:nth-child(19) {
     color: #0f3074;
     top: 90%;
     left: 18%;
@@ -249,8 +206,8 @@
     animation-delay: -32s;
     transform-origin: -8vw -22vh;
     box-shadow: -30vmin 0 4.360054346564339vmin currentColor;
-  }
-  .background span:nth-child(20) {
+}
+.login-background span:nth-child(20) {
     color: #a0b4d4;
     top: 99%;
     left: 23%;
@@ -258,8 +215,8 @@
     animation-delay: -11s;
     transform-origin: 4vw -10vh;
     box-shadow: -30vmin 0 4.4084382593161315vmin currentColor;
-  }
-  .background span:nth-child(21) {
+}
+.login-background span:nth-child(21) {
     color: #0f3074;
     top: 64%;
     left: 70%;
@@ -267,8 +224,8 @@
     animation-delay: -31s;
     transform-origin: -12vw -19vh;
     box-shadow: -30vmin 0 3.752489939639906vmin currentColor;
-  }
-  .background span:nth-child(22) {
+}
+.login-background span:nth-child(22) {
     color: #123786;
     top: 38%;
     left: 22%;
@@ -276,8 +233,8 @@
     animation-delay: -33s;
     transform-origin: -10vw 11vh;
     box-shadow: -30vmin 0 4.414293686428509vmin currentColor;
-  }
-  .background span:nth-child(23) {
+}
+.login-background span:nth-child(23) {
     color: #a0b4d4;
     top: 11%;
     left: 95%;
@@ -285,8 +242,8 @@
     animation-delay: -35s;
     transform-origin: -5vw 3vh;
     box-shadow: 30vmin 0 4.283134505358948vmin currentColor;
-  }
-  .background span:nth-child(24) {
+}
+.login-background span:nth-child(24) {
     color: #9db8e9;
     top: 44%;
     left: 50%;
@@ -294,8 +251,4 @@
     animation-delay: -1s;
     transform-origin: -4vw 8vh;
     box-shadow: 30vmin 0 4.639279149408977vmin currentColor;
-  }
 }
-
-
-

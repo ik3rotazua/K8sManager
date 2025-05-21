@@ -1,0 +1,58 @@
+name: "CI/CD Pages"
+
+permissions:
+  contents: read
+  actions: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "k8s-manager-pages"
+  cancel-in-progress: true
+
+on:
+  workflow_run:
+    workflows: ["CI/CD Demo"]
+    types:
+      - completed
+      - success
+
+jobs:
+  publish-page:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        id: J_CHECKOUT_REPO
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.13.x"
+
+      - name: Download artifact Demo
+        uses: dawidd6/action-download-artifact@v6
+        with:
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          workflow: demo.yml
+          name: "demo"
+          path: demo
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          name: k8s-manager-pages
+          path: demo
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          artifact_name: k8s-manager-pages

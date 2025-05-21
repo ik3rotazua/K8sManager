@@ -18,7 +18,7 @@
       }
     }
   },
-  "APP_NAME": "K8sManager",
+  "APP_NAME": "K8s Manager",
   "BTN": {
     "GENERIC": {
       "NEW": {
@@ -116,7 +116,11 @@
     "AUTH": {
       "LOGIN": {
         "LABEL": {
-          "HEADER": "Hoy es un nuevo día. Toma el control y orquesta la grandeza.",
+          "HEADER": "Hoy es un nuevo día. Toma el control y orquesta.",
+          "LOGO": {
+            "HEADER": "Iniciemos la",
+            "SUBHEADER": "Orquestación!"
+          },
           "NOT_AVAILABLE": "No es posible iniciar sesión en este momento",
           "PASSWORD": "Contraseña",
           "REMEMBERME": "Permanecer conectado",

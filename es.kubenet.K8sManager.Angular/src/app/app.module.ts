@@ -124,7 +124,7 @@ export function getDateRangePickerConfig(): BsDaterangepickerConfig {
     BsMenuModule.forRoot(new BsMenuConfig().setData({
       appLogoSrc: '/assets/img/logo/logo.svg',
       isAppNameLabelShown: true,
-      appLogoName: 'K8sManager',
+      appLogoName: 'K8s Manager',
     })),
   ],
   providers: [

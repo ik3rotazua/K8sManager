@@ -18,7 +18,7 @@
       }
     }
   },
-  "APP_NAME": "K8sManager",
+  "APP_NAME": "K8s Manager",
   "BTN": {
     "GENERIC": {
       "NEW": {
@@ -117,12 +117,16 @@
       "LOGIN": {
         "LABEL": {
           "HEADER": "Today is a new day. Take control and orchestrate greatness.",
+          "LOGO": {
+            "HEADER": "Let's start",
+            "SUBHEADER": "Orchestrating!"
+          },
           "NOT_AVAILABLE": "Authentication is currently not available",
           "PASSWORD": "Password",
           "REMEMBERME": "Keep me signed in",
           "SUBHEADER": "Sign in to manage your Kubernetes clusters.",
           "USERNAME": "Username",
-          "WELCOME": "Welcome"
+          "WELCOME": "Welcome Back"
         }
       }
     },
