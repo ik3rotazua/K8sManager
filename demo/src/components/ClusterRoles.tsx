@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Shield, Plus, Search, X, Check } from 'lucide-react';
+import { useState } from 'react';
+import { Shield, Plus, Search, X } from 'lucide-react';
 
 // Mock roles data
 const predefinedRoles = [
@@ -25,11 +25,11 @@ const mockUsers: User[] = [
   { id: '3', name: 'Carol Williams', email: 'carol@example.com', roles: ['view'] },
 ];
 
-export default function ClusterRoles({ clusters, selectedClusters }) {
+export default function ClusterRoles() {
   const [users, setUsers] = useState<User[]>(mockUsers);
   const [showAddUser, setShowAddUser] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [newUser, setNewUser] = useState({ name: '', email: '', roles: [] });
+  const [newUser, setNewUser] = useState<{ name: string, email: string, roles: string[] }>({ name: '', email: '', roles: [] });
 
   const filteredUsers = users.filter(user => 
     user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||

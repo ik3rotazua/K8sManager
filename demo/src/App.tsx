@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   LayoutDashboard, 
   Box, 
@@ -17,8 +17,7 @@ import {
   User,
   Shield,
   Bell,
-  Users,
-  Lock
+  Users
 } from 'lucide-react';
 import ClusterRoles from './components/ClusterRoles';
 
@@ -86,6 +85,37 @@ function App() {
   const [terminalHistory, setTerminalHistory] = useState(['Welcome to K8s Terminal']);
   const [terminalInput, setTerminalInput] = useState('');
   const [currentView, setCurrentView] = useState('dashboard');
+  const [showAddClusterModal, setShowAddClusterModal] = useState(false);
+
+  // Auto-close sidebar after delay when mouse leaves
+  useEffect(() => {
+    let timeoutId: number;
+    
+    const handleMouseLeave = () => {
+      timeoutId = setTimeout(() => {
+        setIsSidebarOpen(false);
+      }, 300);
+    };
+
+    const handleMouseEnter = () => {
+      clearTimeout(timeoutId);
+      setIsSidebarOpen(true);
+    };
+
+    const sidebar = document.getElementById('sidebar');
+    if (sidebar) {
+      sidebar.addEventListener('mouseleave', handleMouseLeave);
+      sidebar.addEventListener('mouseenter', handleMouseEnter);
+    }
+
+    return () => {
+      if (sidebar) {
+        sidebar.removeEventListener('mouseleave', handleMouseLeave);
+        sidebar.removeEventListener('mouseenter', handleMouseEnter);
+      }
+      clearTimeout(timeoutId);
+    };
+  }, []);
 
   const toggleClusterSelection = (clusterId: string) => {
     setSelectedClusters(prev => 
@@ -106,34 +136,62 @@ function App() {
   const renderMainContent = () => {
     switch(currentView) {
       case 'roles':
-        return <ClusterRoles clusters={clusters} selectedClusters={selectedClusters} />;
+        return <ClusterRoles />;
       case 'dashboard':
       default:
         return (
           <>
+            {selectedClusters.length === 0 && (
+              <div className="flex flex-col items-center justify-center min-h-[60vh] bg-white rounded-lg shadow-lg p-8 mb-8">
+                <div className="bg-blue-50 rounded-full p-6 mb-6">
+                  <Server size={48} className="text-blue-500" />
+                </div>
+                <h2 className="text-2xl font-semibold text-gray-800 mb-3">No Clusters Connected</h2>
+                <p className="text-gray-600 text-center mb-6 max-w-md">
+                  Get started by connecting your first Kubernetes cluster to manage and monitor your applications.
+                </p>
+                <button
+                  onClick={() => setShowAddClusterModal(true)}
+                  className="bg-blue-600 text-white px-6 py-3 rounded-lg flex items-center space-x-2 hover:bg-blue-700 transform hover:scale-105 transition-all duration-300"
+                >
+                  <Plus size={20} />
+                  <span>Connect New Cluster</span>
+                </button>
+              </div>
+            )}
+
             {isTerminalOpen && (
-              <div className="mb-6 bg-gray-900 rounded-lg shadow-lg">
-                <div className="flex items-center justify-between p-2 border-b border-gray-700">
-                  <h3 className="text-white font-mono">Terminal</h3>
+              <div className="fixed bottom-6 right-6 w-[600px] bg-gray-900 rounded-lg shadow-2xl transform transition-all duration-300 ease-in-out">
+                <div className="flex items-center justify-between p-3 border-b border-gray-700 bg-gray-800 rounded-t-lg">
+                  <h3 className="text-white font-mono flex items-center">
+                    <Terminal size={16} className="mr-2" />
+                    Terminal
+                  </h3>
                   <button 
                     onClick={() => setIsTerminalOpen(false)}
-                    className="text-gray-400 hover:text-white"
+                    className="text-gray-400 hover:text-white transition-colors duration-200"
                   >
                     <X size={16} />
                   </button>
                 </div>
-                <div className="p-4 h-64 overflow-auto">
-                  <div className="font-mono text-sm">
+                <div className="p-4 h-80 overflow-auto custom-scrollbar">
+                  <div className="font-mono text-sm space-y-2">
                     {terminalHistory.map((line, i) => (
-                      <div key={i} className="text-green-400">{line}</div>
+                      <div 
+                        key={i} 
+                        className="text-green-400 opacity-0 animate-terminal-line"
+                        style={{ animationDelay: `${i * 100}ms` }}
+                      >
+                        {line}
+                      </div>
                     ))}
-                    <form onSubmit={handleTerminalSubmit} className="mt-2 flex">
+                    <form onSubmit={handleTerminalSubmit} className="mt-2 flex items-center">
                       <span className="text-green-400">$&nbsp;</span>
                       <input
                         type="text"
                         value={terminalInput}
                         onChange={(e) => setTerminalInput(e.target.value)}
-                        className="flex-1 bg-transparent text-green-400 outline-none"
+                        className="flex-1 bg-transparent text-green-400 outline-none caret-green-400"
                         autoFocus
                       />
                     </form>
@@ -143,7 +201,7 @@ function App() {
             )}
 
             {selectedClusters.map(clusterId => {
-              const cluster = clusters[clusterId];
+              const cluster = clusters[clusterId as keyof typeof clusters];
               return (
                 <div key={clusterId} className="mb-8">
                   <div className="flex items-center justify-between mb-4">
@@ -219,6 +277,57 @@ function App() {
                 </div>
               );
             })}
+
+            {/* Add Cluster Modal */}
+            {showAddClusterModal && (
+              <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                <div className="bg-white rounded-lg p-8 w-full max-w-md transform transition-all duration-300 ease-out">
+                  <div className="flex justify-between items-center mb-6">
+                    <h3 className="text-xl font-semibold text-gray-800">Connect New Cluster</h3>
+                    <button
+                      onClick={() => setShowAddClusterModal(false)}
+                      className="text-gray-500 hover:text-gray-700 transition-colors duration-200"
+                    >
+                      <X size={20} />
+                    </button>
+                  </div>
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Cluster Name
+                      </label>
+                      <input
+                        type="text"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="e.g., production-cluster"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Kubernetes Config
+                      </label>
+                      <textarea
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 h-32 font-mono text-sm"
+                        placeholder="Paste your kubeconfig here..."
+                      />
+                    </div>
+                    <div className="flex justify-end space-x-3 mt-6">
+                      <button
+                        onClick={() => setShowAddClusterModal(false)}
+                        className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md transition-colors duration-200"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200"
+                      >
+                        Connect Cluster
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </>
         );
     }
@@ -226,15 +335,10 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex">
-      <div className={`${isSidebarOpen ? 'w-64' : 'w-20'} bg-white border-r border-gray-200 transition-all duration-300 flex flex-col`}>
+      {/* Static Sidebar */}
+      <div id="sidebar" className={`fixed top-0 left-0 h-full ${isSidebarOpen ? 'w-64' : 'w-20'} bg-white border-r border-gray-200 transition-all duration-300 flex flex-col z-10`}>
         <div className="p-4 flex items-center justify-between border-b border-gray-200">
-          <h1 className={`font-bold text-xl text-blue-600 ${!isSidebarOpen && 'hidden'}`}>K8s Manager</h1>
-          <button
-            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="p-2 rounded-lg hover:bg-gray-100"
-          >
-            {isSidebarOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
+          <Menu size={20} className="text-gray-600" />
         </div>
 
         <div className={`p-4 border-b border-gray-200 ${!isSidebarOpen && 'hidden'}`}>
@@ -254,10 +358,6 @@ function App() {
               </label>
             </div>
           ))}
-          <button className="mt-2 w-full flex items-center justify-center px-3 py-2 text-sm text-blue-600 hover:bg-blue-50 rounded-lg">
-            <Plus size={16} className="mr-1" />
-            Add Cluster
-          </button>
         </div>
 
         <nav className="mt-4 flex-1">
@@ -275,11 +375,11 @@ function App() {
             collapsed={!isSidebarOpen}
             onClick={() => setCurrentView('roles')}
           />
-          <NavItem icon={<Box size={20} />} text="Workloads" collapsed={!isSidebarOpen} />
-          <NavItem icon={<Network size={20} />} text="Services" collapsed={!isSidebarOpen} />
-          <NavItem icon={<AlertCircle size={20} />} text="Alerts" collapsed={!isSidebarOpen} />
-          <NavItem icon={<Shield size={20} />} text="Security" collapsed={!isSidebarOpen} />
-          <NavItem icon={<Settings size={20} />} text="Settings" collapsed={!isSidebarOpen} />
+          <NavItem icon={<Box size={20} />} text="Workloads" collapsed={!isSidebarOpen} onClick={() => console.log('Workloads') } />
+          <NavItem icon={<Network size={20} />} text="Services" collapsed={!isSidebarOpen} onClick={() => console.log('Services') } />
+          <NavItem icon={<AlertCircle size={20} />} text="Alerts" collapsed={!isSidebarOpen} onClick={() => console.log('Alerts') } />
+          <NavItem icon={<Shield size={20} />} text="Security" collapsed={!isSidebarOpen} onClick={() => console.log('Security') } />
+          <NavItem icon={<Settings size={20} />} text="Settings" collapsed={!isSidebarOpen} onClick={() => console.log('Settings') } />
         </nav>
 
         <div className={`border-t border-gray-200 p-4 ${!isSidebarOpen && 'hidden'}`}>
@@ -297,58 +397,69 @@ function App() {
         </div>
       </div>
 
-      <div className="flex-1 overflow-auto">
-        <header className="bg-white border-b border-gray-200 p-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-semibold text-gray-800">
-              {currentView === 'roles' ? 'Cluster Roles Management' : 'Multi-Cluster Overview'}
-            </h2>
-            <div className="flex items-center space-x-4">
-              <button className="p-2 hover:bg-gray-100 rounded-lg relative">
-                <Bell size={20} />
-                <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
-              </button>
-              
-              <button 
-                onClick={() => setIsTerminalOpen(!isTerminalOpen)}
-                className={`p-2 hover:bg-gray-100 rounded-lg ${isTerminalOpen ? 'bg-gray-100' : ''}`}
-              >
-                <Terminal size={20} />
-              </button>
-
-              <div className="relative">
+      {/* Main Content Area */}
+      <div className={`flex-1 ${isSidebarOpen ? 'ml-64' : 'ml-20'} transition-all duration-300`}>
+        {/* Static Header */}
+        <header 
+          className="fixed top-0 right-0 bg-white border-b border-gray-200 z-10 transition-all duration-300" 
+          style={{ 
+            left: isSidebarOpen ? '16rem' : '5rem',  // Use rem units instead of pixels
+            transitionProperty: 'left',
+            transitionDuration: '300ms',
+            transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)' 
+          }}>
+          <div className="p-4">
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl font-semibold text-gray-800">
+                {currentView === 'roles' ? 'Cluster Roles Management' : 'Multi-Cluster Overview'}
+              </h2>
+              <div className="flex items-center space-x-4">
+                <button className="p-2 hover:bg-gray-100 rounded-lg relative transition-colors duration-200">
+                  <Bell size={20} />
+                  <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
+                </button>
+                
                 <button 
-                  onClick={() => setIsProfileOpen(!isProfileOpen)}
-                  className="flex items-center space-x-3 p-2 hover:bg-gray-100 rounded-lg"
+                  onClick={() => setIsTerminalOpen(!isTerminalOpen)}
+                  className={`p-2 hover:bg-gray-100 rounded-lg transition-colors duration-200 ${isTerminalOpen ? 'bg-gray-100' : ''}`}
                 >
-                  <img
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    alt="Profile"
-                    className="w-8 h-8 rounded-full"
-                  />
-                  <ChevronDown size={16} />
+                  <Terminal size={20} />
                 </button>
 
-                {isProfileOpen && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 z-10">
-                    <a href="#" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                      <User size={16} className="mr-3" /> Profile
-                    </a>
-                    <a href="#" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                      <Settings size={16} className="mr-3" /> Settings
-                    </a>
-                    <hr className="my-1" />
-                    <a href="#" className="flex items-center px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
-                      <LogOut size={16} className="mr-3" /> Logout
-                    </a>
-                  </div>
-                )}
+                <div className="relative">
+                  <button 
+                    onClick={() => setIsProfileOpen(!isProfileOpen)}
+                    className="flex items-center space-x-3 p-2 hover:bg-gray-100 rounded-lg transition-colors duration-200"
+                  >
+                    <img
+                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                      alt="Profile"
+                      className="w-8 h-8 rounded-full"
+                    />
+                    <ChevronDown size={16} />
+                  </button>
+
+                  {isProfileOpen && (
+                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 z-10">
+                      <a href="#" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200">
+                        <User size={16} className="mr-3" /> Profile
+                      </a>
+                      <a href="#" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200">
+                        <Settings size={16} className="mr-3" /> Settings
+                      </a>
+                      <hr className="my-1" />
+                      <a href="#" className="flex items-center px-4 py-2 text-sm text-red-600 hover:bg-gray-100 transition-colors duration-200">
+                        <LogOut size={16} className="mr-3" /> Logout
+                      </a>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
         </header>
 
-        <main className="p-6">
+        <main className="p-6 mt-20">
           {renderMainContent()}
         </main>
       </div>
@@ -356,7 +467,13 @@ function App() {
   );
 }
 
-function NavItem({ icon, text, active = false, collapsed = false, onClick }) {
+function NavItem({ icon, text, active = false, collapsed = false, onClick }: {
+  icon: React.ReactNode;
+  text: string;
+  active?: boolean;
+  collapsed?: boolean;
+  onClick?: () => void;
+}) {
   return (
     <a
       href="#"
@@ -364,7 +481,7 @@ function NavItem({ icon, text, active = false, collapsed = false, onClick }) {
         e.preventDefault();
         onClick?.();
       }}
-      className={`flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 ${
+      className={`flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 transition-colors duration-200 ${
         active && 'bg-blue-50 text-blue-600'
       }`}
     >
@@ -374,7 +491,11 @@ function NavItem({ icon, text, active = false, collapsed = false, onClick }) {
   );
 }
 
-function MetricCard({ title, value, icon }) {
+function MetricCard({ title, value, icon }: {
+  title: string;
+  value: string | number;
+  icon: React.ReactNode;
+}) {
   return (
     <div className="bg-white rounded-lg shadow p-6">
       <div className="flex items-center justify-between mb-4">
