@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { X, Terminal } from 'lucide-react';
-import TerminalCustomizer from './TerminalCustomizer';
 
 const splashArt = [
     "      .--.          .--.        ",
