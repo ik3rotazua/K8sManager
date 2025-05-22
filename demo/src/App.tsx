@@ -9,17 +9,19 @@ import {
   Settings, 
   Menu, 
   X, 
-  Server, 
-  Plus,
+  Server,
   Terminal,
   ChevronDown,
   LogOut,
   User,
   Shield,
   Bell,
-  Users
+  Users,
+  PlusCircle
 } from 'lucide-react';
 import ClusterRoles from './components/ClusterRoles';
+import Button from './components/ui/Button';
+import AddClusterModal from './components/AddClusterModal';
 
 // Mock data for multiple clusters
 const clusters = {
@@ -86,7 +88,7 @@ function App() {
   const [terminalHistory, setTerminalHistory] = useState(['Welcome to K8s Terminal']);
   const [terminalInput, setTerminalInput] = useState('');
   const [currentView, setCurrentView] = useState('dashboard');
-  const [showAddClusterModal, setShowAddClusterModal] = useState(false);
+  const [isModalOpen, setIsAddClusterModalOpen] = useState(false);
   const [terminalPosition, setTerminalPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const dragRef = useRef<{ startX: number; startY: number; initialPosition: { x: number; y: number } } | null>(null);
@@ -203,13 +205,12 @@ function App() {
                 <p className="text-gray-600 text-center mb-6 max-w-md">
                   Get started by connecting your first Kubernetes cluster to manage and monitor your applications.
                 </p>
-                <button
-                  onClick={() => setShowAddClusterModal(true)}
-                  className="bg-blue-600 text-white px-6 py-3 rounded-lg flex items-center space-x-2 hover:bg-blue-700 transform hover:scale-105 transition-all duration-300"
+                <Button 
+                  onClick={() => setIsAddClusterModalOpen(true)}
+                  leftIcon={<PlusCircle className="w-4 h-4" />}
                 >
-                  <Plus size={20} />
-                  <span>Connect New Cluster</span>
-                </button>
+                  Add Your First Cluster
+                </Button>
               </div>
             )}
 
@@ -272,10 +273,11 @@ function App() {
                         {line}
                       </div>
                     ))}
-                    <form onSubmit={handleTerminalSubmit} className="mt-2 flex items-center">
+                    <form autoComplete='off' onSubmit={handleTerminalSubmit} className="mt-2 flex items-center">
                       <span className="text-green-400">$&nbsp;</span>
                       <input
                         type="text"
+                        autoComplete='off'
                         value={terminalInput}
                         onChange={(e) => setTerminalInput(e.target.value)}
                         className="flex-1 bg-transparent text-green-400 outline-none caret-green-400"
@@ -375,66 +377,20 @@ function App() {
                 <p className="text-gray-600 text-center mb-6 max-w-md">
                   You can connect more Kubernetes clusters to manage and monitor them all in one place.
                 </p>
-                <button
-                  onClick={() => setShowAddClusterModal(true)}
-                  className="bg-blue-600 text-white px-6 py-3 rounded-lg flex items-center space-x-2 hover:bg-blue-700 transform hover:scale-105 transition-all duration-300"
+                <Button 
+                  onClick={() => setIsAddClusterModalOpen(true)}
+                  leftIcon={<PlusCircle className="w-4 h-4" />}
                 >
-                  <Plus size={20} />
-                  <span>Add Cluster</span>
-                </button>
+                  Add Cluster
+                </Button>
               </div>
             )}
 
-            {/* Add Cluster Modal */}
-            {showAddClusterModal && (
-              <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                <div className="bg-white rounded-lg p-8 w-full max-w-md transform transition-all duration-300 ease-out">
-                  <div className="flex justify-between items-center mb-6">
-                    <h3 className="text-xl font-semibold text-gray-800">Connect New Cluster</h3>
-                    <button
-                      onClick={() => setShowAddClusterModal(false)}
-                      className="text-gray-500 hover:text-gray-700 transition-colors duration-200"
-                    >
-                      <X size={20} />
-                    </button>
-                  </div>
-                  <div className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Cluster Name
-                      </label>
-                      <input
-                        type="text"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        placeholder="e.g., production-cluster"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Kubernetes Config
-                      </label>
-                      <textarea
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 h-32 font-mono text-sm"
-                        placeholder="Paste your kubeconfig here..."
-                      />
-                    </div>
-                    <div className="flex justify-end space-x-3 mt-6">
-                      <button
-                        onClick={() => setShowAddClusterModal(false)}
-                        className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md transition-colors duration-200"
-                      >
-                        Cancel
-                      </button>
-                      <button
-                        className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200"
-                      >
-                        Connect Cluster
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
+            {/* Modal */}
+            <AddClusterModal 
+              isOpen={isModalOpen} 
+              onClose={() => setIsAddClusterModalOpen(false)} 
+            />
           </>
         );
     }
@@ -457,6 +413,7 @@ function App() {
             <div key={id} className="flex items-center mb-2">
               <input
                 type="checkbox"
+                autoComplete='off'
                 id={id}
                 checked={selectedClusters.includes(id)}
                 onChange={() => toggleClusterSelection(id)}

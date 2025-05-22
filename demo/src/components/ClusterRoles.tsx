@@ -93,6 +93,7 @@ export default function ClusterRoles() {
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
             <input
               type="text"
+              autoComplete='off'
               placeholder="Search users..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -161,6 +162,7 @@ export default function ClusterRoles() {
                 <label className="block text-sm font-medium text-gray-700">Name</label>
                 <input
                   type="text"
+                  autoComplete='off'
                   value={newUser.name}
                   onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
                   className="mt-1 block w-full border rounded-md px-3 py-2"
@@ -170,6 +172,7 @@ export default function ClusterRoles() {
                 <label className="block text-sm font-medium text-gray-700">Email</label>
                 <input
                   type="email"
+                  autoComplete='off'
                   value={newUser.email}
                   onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
                   className="mt-1 block w-full border rounded-md px-3 py-2"
@@ -182,6 +185,7 @@ export default function ClusterRoles() {
                     <label key={role.name} className="flex items-center">
                       <input
                         type="checkbox"
+                        autoComplete='off'
                         checked={newUser.roles.includes(role.name)}
                         onChange={(e) => {
                           const roles = e.target.checked
