@@ -7,8 +7,7 @@ import {
   Network, 
   AlertCircle, 
   Settings, 
-  Menu, 
-  X, 
+  Menu,
   Server,
   Terminal,
   ChevronDown,
@@ -22,6 +21,7 @@ import {
 import ClusterRoles from './components/ClusterRoles';
 import Button from './components/ui/Button';
 import AddClusterModal from './components/AddClusterModal';
+import TerminalHacker from './components/TerminalHacker';
 
 // Mock data for multiple clusters
 const clusters = {
@@ -85,8 +85,6 @@ function App() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
   const [isTerminalMinimized, setIsTerminalMinimized] = useState(false);
-  const [terminalHistory, setTerminalHistory] = useState(['Welcome to K8s Terminal']);
-  const [terminalInput, setTerminalInput] = useState('');
   const [currentView, setCurrentView] = useState('dashboard');
   const [isModalOpen, setIsAddClusterModalOpen] = useState(false);
   const [terminalPosition, setTerminalPosition] = useState({ x: 0, y: 0 });
@@ -153,14 +151,6 @@ function App() {
     );
   };
 
-  const handleTerminalSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (terminalInput.trim()) {
-      setTerminalHistory(prev => [...prev, `$ ${terminalInput}`, 'Command executed (mock response)']);
-      setTerminalInput('');
-    }
-  };
-
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     if ((e.target as HTMLElement).closest('.terminal-header')) {
       setIsDragging(true);
@@ -215,79 +205,15 @@ function App() {
             )}
 
             {isTerminalOpen && (
-              <div 
-                className="fixed bg-gray-900 rounded-lg shadow-2xl transform transition-all duration-300 ease-out"
-                style={{
-                  height: isTerminalMinimized ? '48px' : '360px',
-                  width: '600px',
-                  bottom: 24 - terminalPosition.y,
-                  right: 24 - terminalPosition.x,
-                  overflow: 'hidden',
-                  cursor: isDragging ? 'grabbing' : 'auto',
-                  zIndex: 50,
-                  transition: isDragging ? 'none' : 'bottom 0.3s cubic-bezier(0.22, 1, 0.36, 1), right 0.3s cubic-bezier(0.22, 1, 0.36, 1)'
-                }}
+              <TerminalHacker
+                isOpen={isTerminalOpen}
+                isMinimized={isTerminalMinimized}
+                onClose={() => setIsTerminalOpen(false)}
+                onMinimize={() => setIsTerminalMinimized(!isTerminalMinimized)}
+                position={terminalPosition}
+                isDragging={isDragging}
                 onMouseDown={handleMouseDown}
-              >
-                <div className="flex items-center justify-between p-3 border-b border-gray-700 bg-gray-800 rounded-t-lg sticky top-0 z-10 terminal-header cursor-grab">
-                  <h3 className="text-white font-mono flex items-center">
-                    <Terminal size={16} className="mr-2" />
-                    Terminal
-                  </h3>
-                  <div className="flex space-x-2">
-                    <button 
-                      onClick={() => setIsTerminalMinimized(!isTerminalMinimized)}
-                      className="text-gray-400 hover:text-white transition-all duration-300"
-                    >
-                      <div className={`transform transition-transform duration-300 ${isTerminalMinimized ? 'rotate-180' : 'rotate-0'}`}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                      </div>
-                    </button>
-                    <button 
-                      onClick={() => setIsTerminalOpen(false)}
-                      className="text-gray-400 hover:text-white transition-colors duration-200"
-                    >
-                      <X size={16} />
-                    </button>
-                  </div>
-                </div>
-                <div 
-                  className="p-4 overflow-auto custom-scrollbar transition-all duration-300"
-                  style={{ 
-                    maxHeight: isTerminalMinimized ? '0' : 'calc(100% - 48px)',
-                    opacity: isTerminalMinimized ? 0 : 1 
-                  }}
-                >
-                  <div className="font-mono text-sm space-y-2">
-                    {terminalHistory.map((line, i) => (
-                      <div 
-                        key={i} 
-                        className="text-green-400"
-                        style={{ 
-                          opacity: isTerminalMinimized ? 0 : 1,
-                          transition: `opacity 300ms ${i * 50}ms ease-in-out` 
-                        }}
-                      >
-                        {line}
-                      </div>
-                    ))}
-                    <form autoComplete='off' onSubmit={handleTerminalSubmit} className="mt-2 flex items-center">
-                      <span className="text-green-400">$&nbsp;</span>
-                      <input
-                        type="text"
-                        autoComplete='off'
-                        value={terminalInput}
-                        onChange={(e) => setTerminalInput(e.target.value)}
-                        className="flex-1 bg-transparent text-green-400 outline-none caret-green-400"
-                        autoFocus={!isTerminalMinimized}
-                        disabled={isTerminalMinimized}
-                      />
-                    </form>
-                  </div>
-                </div>
-              </div>
+              />
             )}
 
             {selectedClusters.map(clusterId => {
